@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import DashboardLayout from '../components/DashboardLayout';
 import Predictor from '../components/Predictor';
 
 const PostPredictorPage = () => {
@@ -7,11 +8,13 @@ const PostPredictorPage = () => {
   }, []);
 
   return (
-    <div className="post-predictor-page">
-      <main style={{ paddingTop: '80px', paddingBottom: '40px', minHeight: '80vh' }}>
-        <Predictor />
-      </main>
-    </div>
+    <DashboardLayout>
+      <div className="post-predictor-page">
+        <main style={{ padding: '30px', minHeight: '80vh' }}>
+          <Predictor />
+        </main>
+      </div>
+    </DashboardLayout>
   );
 };
 

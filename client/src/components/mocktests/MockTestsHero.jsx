@@ -39,7 +39,7 @@ const MockTestsHero = () => {
 
           <div className="mock-hero-image-side">
             <div className="mock-hero-img-wrapper">
-              <img src="/images/mocktests/mock-hero.jpg" alt="Student taking mock test" />
+              <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" alt="Student taking mock test" />
               
               {/* Laptop screen overlay box */}
               <div className="mock-laptop-overlay">

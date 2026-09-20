@@ -6,12 +6,13 @@ const DashboardLayout = ({ children }) => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
   const [showParentModal, setShowParentModal] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const navItems = [
     { path: '/dashboard', icon: 'fas fa-home', label: 'Dashboard' },
     { path: '/dashboard-study-plan', icon: 'far fa-calendar-alt', label: 'My Study Plan' },
     { path: '/dashboard-practice', icon: 'fas fa-tasks', label: 'Practice Tests' },
-    { path: '/mock-tests', icon: 'far fa-file-alt', label: 'Mock Tests' },
+    { path: '/dashboard-mock-tests', icon: 'far fa-file-alt', label: 'Mock Tests' },
     { path: '/dashboard-pyq', icon: 'fas fa-history', label: 'Previous Year Papers' },
     { path: '/current-affairs', icon: 'far fa-newspaper', label: 'Current Affairs' },
     { path: '/post-predictor', icon: 'fas fa-bullseye', label: 'Post Predictor' },
@@ -23,28 +24,22 @@ const DashboardLayout = ({ children }) => {
   ];
 
   return (
-    <div className="dashboard-page animate-fade-in" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#f8fafc', fontFamily: "'Inter', sans-serif" }}>
+    <div className="dashboard-page dashboard-page-wrapper animate-fade-in">
       {/* Top Header */}
-      <header className="dashboard-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 30px', backgroundColor: 'white', borderBottom: '1px solid #e2e8f0', zIndex: 10 }}>
+      <header className="dashboard-header">
         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+          <button className="hamburger-menu-btn" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+            <i className="fas fa-bars"></i>
+          </button>
           <i className="fas fa-graduation-cap" style={{ fontSize: '28px', color: '#1e3a8a' }}></i>
           <div>
-            <h1 style={{ margin: 0, fontSize: '20px', fontWeight: '800', color: '#0f172a' }}>CGLPrep AI</h1>
+            <h1 className="brand-title" style={{ margin: 0, fontSize: '20px', fontWeight: '800', color: '#0f172a' }}>CGLPrep AI</h1>
             <p style={{ margin: 0, fontSize: '10px', color: '#1e3a8a', fontWeight: '600' }}>Plan • Practice • Crack CGL</p>
           </div>
         </div>
 
-        <div style={{ flex: 1, maxWidth: '600px', margin: '0 40px', position: 'relative' }}>
-          <i className="fas fa-search" style={{ position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }}></i>
-          <input 
-            type="text" 
-            placeholder="Search for topics, tests, current affairs... (e.g. Polity, Mock Test, Budget 2026)" 
-            style={{ width: '100%', padding: '12px 15px 12px 45px', border: '1px solid #e2e8f0', borderRadius: '8px', backgroundColor: '#f1f5f9', fontSize: '14px', outline: 'none' }} 
-          />
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          <button style={{ backgroundColor: '#2563eb', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginLeft: 'auto' }}>
+          <button className="upgrade-btn" style={{ backgroundColor: '#2563eb', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
             <i className="fas fa-crown"></i> Upgrade Plan
           </button>
           
@@ -54,7 +49,10 @@ const DashboardLayout = ({ children }) => {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-            <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#475569', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: '700', fontSize: '14px' }}>
+            {user?.profilePicture ? (
+              <img src={user.profilePicture} alt="User Avatar" style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover' }} onError={(e) => { e.target.onerror = null; e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }} />
+            ) : null}
+            <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#475569', color: 'white', display: user?.profilePicture ? 'none' : 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: '700', fontSize: '14px' }}>
               {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
             </div>
             <span style={{ fontSize: '14px', fontWeight: '600', color: '#334155' }}>{user?.name || 'User'} <i className="fas fa-chevron-down" style={{ fontSize: '10px', marginLeft: '5px' }}></i></span>
@@ -63,10 +61,13 @@ const DashboardLayout = ({ children }) => {
       </header>
 
       {/* Main Layout */}
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+      <div className="dashboard-layout-main">
         
+        {/* Overlay for mobile sidebar */}
+        <div className={`sidebar-overlay ${isSidebarOpen ? 'active' : ''}`} onClick={() => setIsSidebarOpen(false)}></div>
+
         {/* Left Sidebar */}
-        <aside className="dashboard-sidebar" style={{ width: '260px', backgroundColor: '#0f172a', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
+        <aside className={`dashboard-sidebar ${isSidebarOpen ? 'open' : ''}`}>
           <nav style={{ padding: '20px 15px', flex: 1, overflowY: 'auto' }}>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '5px' }}>
               {navItems.map((item, idx) => {
@@ -98,7 +99,7 @@ const DashboardLayout = ({ children }) => {
         </aside>
 
         {/* Center Content Area */}
-        <main style={{ flex: 1, padding: '30px', overflowY: 'auto' }}>
+        <main className="dashboard-content-area">
           {children}
         </main>
       </div>

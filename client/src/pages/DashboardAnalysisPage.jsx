@@ -1,159 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import DashboardLayout from '../components/DashboardLayout';
+import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 const DashboardAnalysisPage = () => {
+  const { user } = useContext(AuthContext);
   const [showParentModal, setShowParentModal] = useState(false);
-
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [progressData, setProgressData] = useState(null);
+  
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    
+    // Fetch real progress data
+    const fetchProgress = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/progress/summary?userId=${user?._id || 'guest'}`);
+        const result = await response.json();
+        if (result.success) {
+          setProgressData(result.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch progress data', err);
+      }
+    };
+    fetchProgress();
+  }, [user]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#f8fafc', fontFamily: "'Inter', sans-serif", position: 'relative' }}>
-      
-      {/* Top Header */}
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 30px', backgroundColor: 'white', borderBottom: '1px solid #e2e8f0', zIndex: 10 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-          <i className="fas fa-graduation-cap" style={{ fontSize: '28px', color: '#1e3a8a' }}></i>
-          <div>
-            <h1 style={{ margin: 0, fontSize: '20px', fontWeight: '800', color: '#0f172a' }}>CGLPrep AI</h1>
-            <p style={{ margin: 0, fontSize: '10px', color: '#1e3a8a', fontWeight: '600' }}>Plan • Practice • Crack CGL</p>
-          </div>
-        </div>
-
-        <div style={{ flex: 1, maxWidth: '600px', margin: '0 40px', position: 'relative' }}>
-          <i className="fas fa-search" style={{ position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }}></i>
-          <input 
-            type="text" 
-            placeholder="Search for topics, tests, current affairs... (e.g. Polity, Mock Test, Budget 2026)" 
-            style={{ width: '100%', padding: '12px 15px 12px 45px', border: '1px solid #e2e8f0', borderRadius: '24px', backgroundColor: '#f8fafc', fontSize: '14px', outline: 'none' }} 
-          />
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          <div style={{ position: 'relative', cursor: 'pointer' }}>
-            <i className="far fa-bell" style={{ fontSize: '20px', color: '#475569' }}></i>
-            <span style={{ position: 'absolute', top: '-5px', right: '-5px', backgroundColor: '#ef4444', color: 'white', fontSize: '10px', fontWeight: 'bold', borderRadius: '50%', width: '16px', height: '16px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>3</span>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-            <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#475569', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: '700', fontSize: '14px' }}>PT</div>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-               <span style={{ fontSize: '14px', fontWeight: '600', color: '#334155' }}>Pankaj Thakur</span>
-               <span style={{ fontSize: '11px', color: '#64748b' }}>Student</span>
-            </div>
-            <i className="fas fa-chevron-down" style={{ fontSize: '10px', color: '#64748b', marginLeft: '5px' }}></i>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Layout */}
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <DashboardLayout>
+      <div className="db-main-container" style={{ padding: '30px' }}>
         
-        {/* Left Sidebar */}
-        <aside style={{ width: '260px', backgroundColor: '#0f172a', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
-          <nav style={{ padding: '20px 15px', flex: 1, overflowY: 'auto' }}>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '5px' }}>
-              <li style={{ backgroundColor: '#1d4ed8', borderRadius: '8px' }}>
-                <Link to="/dashboard" style={{ color: 'white', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '600', fontSize: '14px' }}>
-                  <i className="fas fa-home" style={{ width: '20px', textAlign: 'center' }}></i> Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard-study-plan" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="far fa-calendar-alt" style={{ width: '20px', textAlign: 'center' }}></i> My Study Plan
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard-practice" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="fas fa-tasks" style={{ width: '20px', textAlign: 'center' }}></i> Practice Tests
-                </Link>
-              </li>
-              <li>
-                <Link to="/mock-tests" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="far fa-file-alt" style={{ width: '20px', textAlign: 'center' }}></i> Mock Tests
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard-pyq" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="fas fa-history" style={{ width: '20px', textAlign: 'center' }}></i> Previous Year Papers
-                </Link>
-              </li>
-              <li>
-                <Link to="/current-affairs" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="far fa-newspaper" style={{ width: '20px', textAlign: 'center' }}></i> Current Affairs
-                </Link>
-              </li>
-              <li>
-                <Link to="/post-predictor" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="fas fa-bullseye" style={{ width: '20px', textAlign: 'center' }}></i> Post Predictor
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard-analysis" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="fas fa-chart-bar" style={{ width: '20px', textAlign: 'center' }}></i> Performance Analytics
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard-notes" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="far fa-file-pdf" style={{ width: '20px', textAlign: 'center' }}></i> Notes & PDFs
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard-bookmarks" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="far fa-bookmark" style={{ width: '20px', textAlign: 'center' }}></i> Bookmarks
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard-discuss" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="far fa-comments" style={{ width: '20px', textAlign: 'center' }}></i> Discuss & Learn
-                </Link>
-              </li>
-              <li>
-                <a href="#" onClick={(e) => { e.preventDefault(); setShowParentModal(true); }} style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="fas fa-user-friends" style={{ width: '20px', textAlign: 'center' }}></i> Parent Access <span style={{ backgroundColor: '#10b981', color: 'white', fontSize: '10px', padding: '2px 6px', borderRadius: '10px', marginLeft: 'auto' }}>New</span>
-                </a>
-              </li>
-              <li>
-                <Link to="/dashboard-settings" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="fas fa-cog" style={{ width: '20px', textAlign: 'center' }}></i> Settings
-                </Link>
-              </li>
-            </ul>
-          </nav>
-          
-          <div style={{ padding: '20px' }}>
-            <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '20px' }}>
-              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}>
-                 <i className="fas fa-crown" style={{ color: '#fbbf24', fontSize: '24px' }}></i>
-              </div>
-              <h4 style={{ color: 'white', margin: '0 0 15px', fontSize: '15px', textAlign: 'center' }}>Upgrade to Pro</h4>
-              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 15px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                 <li style={{ color: '#cbd5e1', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '8px' }}><i className="fas fa-check" style={{ color: '#10b981' }}></i> Advanced Mock Tests</li>
-                 <li style={{ color: '#cbd5e1', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '8px' }}><i className="fas fa-check" style={{ color: '#10b981' }}></i> Detailed Analytics</li>
-                 <li style={{ color: '#cbd5e1', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '8px' }}><i className="fas fa-check" style={{ color: '#10b981' }}></i> PDF Downloads</li>
-                 <li style={{ color: '#cbd5e1', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '8px' }}><i className="fas fa-check" style={{ color: '#10b981' }}></i> Priority Support</li>
-              </ul>
-              <button style={{ backgroundColor: '#2563eb', color: 'white', border: 'none', width: '100%', padding: '10px', borderRadius: '8px', fontSize: '13px', fontWeight: '600', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '5px' }}>Upgrade Now <i className="fas fa-arrow-right"></i></button>
-            </div>
-          </div>
-        </aside>
-
         {/* Center Content Area */}
-        <main style={{ flex: 1, padding: '30px', overflowY: 'auto' }}>
+        <div style={{ flex: 1 }}>
           
           {/* Welcome Row */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '30px' }}>
+          <div className="db-welcome-row">
             <div>
               <h2 style={{ color: '#0f172a', fontSize: '32px', fontWeight: '800', margin: '0 0 8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                Welcome Back, Pankaj! <span style={{ fontSize: '28px' }}>👋</span>
+                Welcome Back, {user?.name || 'Student'}! <span style={{ fontSize: '28px' }}>👋</span>
               </h2>
               <p style={{ color: '#334155', fontSize: '15px', margin: 0 }}>
                 Discipline today. Results tomorrow.
               </p>
             </div>
             
-            <div style={{ position: 'relative', top: '10px', right: '10px', transform: 'rotate(-5deg)', textAlign: 'center' }}>
+            <div className="db-welcome-decorator">
                <h3 style={{ fontFamily: "'Caveat', cursive", fontSize: '24px', color: '#1e3a8a', margin: 0, lineHeight: '1.1' }}>
                  Same<br/>Aspiration<br/>Bigger<br/>Dreams!
                </h3>
@@ -162,7 +54,7 @@ const DashboardAnalysisPage = () => {
           </div>
 
           {/* Top Section: Readiness & Goal */}
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px', marginBottom: '20px' }}>
+          <div className="db-analysis-grid-2-1">
              {/* CGL Readiness */}
              <div style={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '25px', display: 'flex', flexDirection: 'column' }}>
                 <h3 style={{ margin: '0 0 20px', fontSize: '16px', fontWeight: '800', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -255,23 +147,27 @@ const DashboardAnalysisPage = () => {
              </div>
           </div>
 
-          {/* Stats Row */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '15px', marginBottom: '20px' }}>
+          {/* Topic Wise Mastery */}
+          <div className="db-analysis-grid-1-1">
              <div style={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '20px', display: 'flex', alignItems: 'center', gap: '15px' }}>
                <div style={{ width: '46px', height: '46px', borderRadius: '10px', backgroundColor: '#f3e8ff', color: '#9333ea', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '20px', flexShrink: 0 }}><i className="fas fa-file-signature"></i></div>
                <div>
                  <p style={{ margin: '0 0 2px', fontSize: '12px', color: '#64748b' }}>Tests Attempted</p>
-                 <h4 style={{ margin: '0 0 2px', fontSize: '22px', fontWeight: '800', color: '#0f172a' }}>24</h4>
-                 <p style={{ margin: 0, fontSize: '11px', color: '#10b981', fontWeight: '600' }}>+5 this week</p>
+                 <h4 style={{ margin: '0 0 2px', fontSize: '22px', fontWeight: '800', color: '#0f172a' }}>
+                   {progressData ? progressData.overallStats.totalTests : '0'}
+                 </h4>
+                 <p style={{ margin: 0, fontSize: '11px', color: '#10b981', fontWeight: '600' }}>Overall</p>
                </div>
              </div>
              
              <div style={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '20px', display: 'flex', alignItems: 'center', gap: '15px' }}>
-               <div style={{ width: '46px', height: '46px', borderRadius: '10px', backgroundColor: '#dcfce7', color: '#16a34a', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '20px', flexShrink: 0 }}><i className="fas fa-list-ul"></i></div>
+               <div style={{ width: '46px', height: '46px', borderRadius: '10px', backgroundColor: '#f0fdf4', color: '#16a34a', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '20px', flexShrink: 0 }}><i className="fas fa-check-circle"></i></div>
                <div>
-                 <p style={{ margin: '0 0 2px', fontSize: '12px', color: '#64748b' }}>Questions Solved</p>
-                 <h4 style={{ margin: '0 0 2px', fontSize: '22px', fontWeight: '800', color: '#0f172a' }}>1,250</h4>
-                 <p style={{ margin: 0, fontSize: '11px', color: '#10b981', fontWeight: '600' }}>+320 this week</p>
+                 <p style={{ margin: '0 0 2px', fontSize: '12px', color: '#64748b' }}>Total Questions Solved</p>
+                 <h4 style={{ margin: '0 0 2px', fontSize: '22px', fontWeight: '800', color: '#0f172a' }}>
+                   {progressData ? progressData.overallStats.totalQuestions : '0'}
+                 </h4>
+                 <p style={{ margin: 0, fontSize: '11px', color: '#10b981', fontWeight: '600' }}>In all tests</p>
                </div>
              </div>
 
@@ -279,8 +175,10 @@ const DashboardAnalysisPage = () => {
                <div style={{ width: '46px', height: '46px', borderRadius: '10px', backgroundColor: '#ffe4e6', color: '#e11d48', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '20px', flexShrink: 0 }}><i className="fas fa-bullseye"></i></div>
                <div>
                  <p style={{ margin: '0 0 2px', fontSize: '12px', color: '#64748b' }}>Accuracy Rate</p>
-                 <h4 style={{ margin: '0 0 2px', fontSize: '22px', fontWeight: '800', color: '#0f172a' }}>78%</h4>
-                 <p style={{ margin: 0, fontSize: '11px', color: '#10b981', fontWeight: '600' }}>+5% this week</p>
+                 <h4 style={{ margin: '0 0 2px', fontSize: '22px', fontWeight: '800', color: '#0f172a' }}>
+                   {progressData ? progressData.overallStats.accuracy : '0'}%
+                 </h4>
+                 <p style={{ margin: 0, fontSize: '11px', color: '#10b981', fontWeight: '600' }}>Overall</p>
                </div>
              </div>
 
@@ -303,8 +201,8 @@ const DashboardAnalysisPage = () => {
              </div>
           </div>
 
-          {/* Middle Section: Study Plan & Performance Chart */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+          {/* Middle Section: Weak Areas & Strengths */}
+          <div className="db-analysis-grid-1-1">
              
              {/* Today's Study Plan Detailed */}
              <div style={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '25px' }}>
@@ -401,111 +299,61 @@ const DashboardAnalysisPage = () => {
 
                   {/* Bars Container */}
                   <div style={{ display: 'flex', gap: '30px', paddingLeft: '30px', width: '100%', justifyContent: 'space-around', zIndex: 1 }}>
-                    {/* Quant */}
-                    <div style={{ display: 'flex', alignItems: 'flex-end', gap: '5px' }}>
-                      <div style={{ width: '25px', height: '72%', backgroundColor: '#2563eb', borderRadius: '2px 2px 0 0', position: 'relative' }}>
-                        <span style={{ position: 'absolute', top: '-18px', left: '50%', transform: 'translateX(-50%)', fontSize: '10px', fontWeight: '700', color: '#0f172a' }}>72</span>
+                    {progressData && progressData.subjects ? progressData.subjects.map((sub, idx) => (
+                      <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '5px', height: '120px' }}>
+                          <div style={{ width: '25px', height: `${Math.max(sub.progress, 5)}%`, backgroundColor: sub.color, borderRadius: '2px 2px 0 0', position: 'relative' }}>
+                            <span style={{ position: 'absolute', top: '-18px', left: '50%', transform: 'translateX(-50%)', fontSize: '10px', fontWeight: '700', color: '#0f172a' }}>{sub.progress}</span>
+                          </div>
+                          <div style={{ width: '25px', height: '85%', backgroundColor: '#e2e8f0', borderRadius: '2px 2px 0 0', position: 'relative' }}>
+                            <span style={{ position: 'absolute', top: '-18px', left: '50%', transform: 'translateX(-50%)', fontSize: '10px', fontWeight: '600', color: '#64748b' }}>85</span>
+                          </div>
+                        </div>
+                        <span style={{ fontSize: '10px', color: '#64748b', fontWeight: '600', textAlign: 'center', width: '50px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {sub.name.split(' ')[0]}
+                        </span>
                       </div>
-                      <div style={{ width: '25px', height: '85%', backgroundColor: '#e2e8f0', borderRadius: '2px 2px 0 0', position: 'relative' }}>
-                        <span style={{ position: 'absolute', top: '-18px', left: '50%', transform: 'translateX(-50%)', fontSize: '10px', fontWeight: '600', color: '#64748b' }}>85</span>
-                      </div>
-                    </div>
-                    {/* Reasoning */}
-                    <div style={{ display: 'flex', alignItems: 'flex-end', gap: '5px' }}>
-                      <div style={{ width: '25px', height: '66%', backgroundColor: '#2563eb', borderRadius: '2px 2px 0 0', position: 'relative' }}>
-                        <span style={{ position: 'absolute', top: '-18px', left: '50%', transform: 'translateX(-50%)', fontSize: '10px', fontWeight: '700', color: '#0f172a' }}>66</span>
-                      </div>
-                      <div style={{ width: '25px', height: '85%', backgroundColor: '#e2e8f0', borderRadius: '2px 2px 0 0', position: 'relative' }}>
-                        <span style={{ position: 'absolute', top: '-18px', left: '50%', transform: 'translateX(-50%)', fontSize: '10px', fontWeight: '600', color: '#64748b' }}>85</span>
-                      </div>
-                    </div>
-                    {/* English */}
-                    <div style={{ display: 'flex', alignItems: 'flex-end', gap: '5px' }}>
-                      <div style={{ width: '25px', height: '61%', backgroundColor: '#2563eb', borderRadius: '2px 2px 0 0', position: 'relative' }}>
-                        <span style={{ position: 'absolute', top: '-18px', left: '50%', transform: 'translateX(-50%)', fontSize: '10px', fontWeight: '700', color: '#0f172a' }}>61</span>
-                      </div>
-                      <div style={{ width: '25px', height: '80%', backgroundColor: '#e2e8f0', borderRadius: '2px 2px 0 0', position: 'relative' }}>
-                        <span style={{ position: 'absolute', top: '-18px', left: '50%', transform: 'translateX(-50%)', fontSize: '10px', fontWeight: '600', color: '#64748b' }}>80</span>
-                      </div>
-                    </div>
-                    {/* GA */}
-                    <div style={{ display: 'flex', alignItems: 'flex-end', gap: '5px' }}>
-                      <div style={{ width: '25px', height: '58%', backgroundColor: '#2563eb', borderRadius: '2px 2px 0 0', position: 'relative' }}>
-                        <span style={{ position: 'absolute', top: '-18px', left: '50%', transform: 'translateX(-50%)', fontSize: '10px', fontWeight: '700', color: '#0f172a' }}>58</span>
-                      </div>
-                      <div style={{ width: '25px', height: '80%', backgroundColor: '#e2e8f0', borderRadius: '2px 2px 0 0', position: 'relative' }}>
-                        <span style={{ position: 'absolute', top: '-18px', left: '50%', transform: 'translateX(-50%)', fontSize: '10px', fontWeight: '600', color: '#64748b' }}>80</span>
-                      </div>
-                    </div>
+                    )) : (
+                      <div style={{ alignSelf: 'center', color: '#64748b', fontSize: '13px' }}>Loading subject performance...</div>
+                    )}
                   </div>
-               </div>
-               <div style={{ display: 'flex', justifyContent: 'space-around', paddingLeft: '30px', paddingTop: '10px' }}>
-                 <span style={{ fontSize: '12px', color: '#475569', fontWeight: '500' }}>Quant</span>
-                 <span style={{ fontSize: '12px', color: '#475569', fontWeight: '500' }}>Reasoning</span>
-                 <span style={{ fontSize: '12px', color: '#475569', fontWeight: '500' }}>English</span>
-                 <span style={{ fontSize: '12px', color: '#475569', fontWeight: '500' }}>GA</span>
                </div>
              </div>
           </div>
 
-          {/* Bottom Section: Activity & AI Insights */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+          {/* Recent Performance Log */}
+          <div className="db-analysis-grid-2-1">
             
-            {/* Recent Activity */}
-            <div style={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '25px' }}>
-               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                 <h3 style={{ margin: 0, fontSize: '16px', fontWeight: '800', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                   <i className="fas fa-history" style={{ color: '#2563eb' }}></i> Recent Activity
-                 </h3>
-                 <a href="#" style={{ color: '#2563eb', fontSize: '13px', fontWeight: '600', textDecoration: 'none' }}>View All <i className="fas fa-arrow-right"></i></a>
-               </div>
+             {/* Recent Activity */}
+             <div style={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '25px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                  <h3 style={{ margin: 0, fontSize: '16px', fontWeight: '800', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <i className="fas fa-history" style={{ color: '#2563eb' }}></i> Recent Activity
+                  </h3>
+                  <a href="#" style={{ color: '#2563eb', fontSize: '13px', fontWeight: '600', textDecoration: 'none' }}>View All <i className="fas fa-arrow-right"></i></a>
+                </div>
 
-               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                 <div style={{ display: 'flex', gap: '15px' }}>
-                   <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#dcfce7', color: '#16a34a', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', flexShrink: 0 }}><i className="fas fa-check"></i></div>
-                   <div style={{ flex: 1 }}>
-                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2px' }}>
-                       <h4 style={{ margin: 0, fontSize: '13px', fontWeight: '600', color: '#334155' }}>Attempted Quantitative Aptitude Mock Test</h4>
-                       <span style={{ fontSize: '11px', color: '#94a3b8' }}>2 hours ago</span>
-                     </div>
-                     <p style={{ margin: 0, fontSize: '12px', color: '#64748b' }}>Scored 72/100</p>
-                   </div>
-                 </div>
-
-                 <div style={{ display: 'flex', gap: '15px' }}>
-                   <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#fef3c7', color: '#d97706', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', flexShrink: 0 }}><i className="fas fa-star"></i></div>
-                   <div style={{ flex: 1 }}>
-                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2px' }}>
-                       <h4 style={{ margin: 0, fontSize: '13px', fontWeight: '600', color: '#334155' }}>Completed Current Affairs Quiz</h4>
-                       <span style={{ fontSize: '11px', color: '#94a3b8' }}>5 hours ago</span>
-                     </div>
-                     <p style={{ margin: 0, fontSize: '12px', color: '#64748b' }}>Scored 8/10</p>
-                   </div>
-                 </div>
-
-                 <div style={{ display: 'flex', gap: '15px' }}>
-                   <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', flexShrink: 0 }}><i className="fas fa-pen"></i></div>
-                   <div style={{ flex: 1 }}>
-                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2px' }}>
-                       <h4 style={{ margin: 0, fontSize: '13px', fontWeight: '600', color: '#334155' }}>Practiced 50 Questions (Reasoning)</h4>
-                       <span style={{ fontSize: '11px', color: '#94a3b8' }}>1 day ago</span>
-                     </div>
-                     <p style={{ margin: 0, fontSize: '12px', color: '#64748b' }}>Accuracy 80%</p>
-                   </div>
-                 </div>
-
-                 <div style={{ display: 'flex', gap: '15px' }}>
-                   <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#dcfce7', color: '#16a34a', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', flexShrink: 0 }}><i className="fas fa-check"></i></div>
-                   <div style={{ flex: 1 }}>
-                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2px' }}>
-                       <h4 style={{ margin: 0, fontSize: '13px', fontWeight: '600', color: '#334155' }}>Read Article: Budget 2026 - Key Highlights</h4>
-                       <span style={{ fontSize: '11px', color: '#94a3b8' }}>1 day ago</span>
-                     </div>
-                     <p style={{ margin: 0, fontSize: '12px', color: '#64748b' }}>Completed</p>
-                   </div>
-                 </div>
-               </div>
-            </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  {progressData && progressData.recentTests && progressData.recentTests.length > 0 ? (
+                    progressData.recentTests.slice(0, 4).map((test, idx) => (
+                      <div key={idx} style={{ display: 'flex', gap: '15px' }}>
+                        <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#dcfce7', color: '#16a34a', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '12px', flexShrink: 0 }}><i className="fas fa-check"></i></div>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2px' }}>
+                            <h4 style={{ margin: 0, fontSize: '13px', fontWeight: '600', color: '#334155' }}>Attempted {test.topic}</h4>
+                            <span style={{ fontSize: '11px', color: '#94a3b8' }}>{new Date(test.createdAt).toLocaleDateString()}</span>
+                          </div>
+                          <p style={{ margin: 0, fontSize: '12px', color: '#64748b' }}>Scored {test.score}/{test.maxScore} ({test.subject})</p>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div style={{ fontSize: '13px', color: '#64748b', textAlign: 'center', padding: '20px 0' }}>
+                      Take a mock test to see your recent activity here!
+                    </div>
+                  )}
+                </div>
+             </div>
 
             {/* AI Insights */}
             <div style={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '25px' }}>
@@ -576,9 +424,9 @@ const DashboardAnalysisPage = () => {
                Made for India's Aspirants <i className="fas fa-heart" style={{ color: '#ef4444' }}></i>
             </div>
           </footer>
-        </main>
+         </div>
 
-        {/* Right Sidebar */}
+         {/* Right Sidebar */}
         <aside style={{ width: '280px', backgroundColor: '#ffffff', borderLeft: '1px solid #e2e8f0', padding: '25px', display: 'flex', flexDirection: 'column', gap: '20px', overflowY: 'auto' }}>
            
            {/* Date Widget */}
@@ -652,7 +500,7 @@ const DashboardAnalysisPage = () => {
            <div style={{ backgroundColor: '#fffbeb', border: '1px solid #fde68a', borderRadius: '12px', padding: '20px', display: 'flex', gap: '15px', alignItems: 'flex-start' }}>
              <i className="fas fa-trophy" style={{ color: '#f59e0b', fontSize: '24px', marginTop: '5px' }}></i>
              <div>
-               <h4 style={{ margin: '0 0 5px', fontSize: '14px', fontWeight: '800', color: '#92400e' }}>Keep Going, Pankaj!</h4>
+               <h4 style={{ margin: '0 0 5px', fontSize: '14px', fontWeight: '800', color: '#92400e' }}>Keep Going, {user?.name || 'Student'}!</h4>
                <p style={{ margin: 0, fontSize: '11px', color: '#b45309', lineHeight: '1.4' }}>Success is the sum of small efforts, repeated daily.</p>
                <div style={{ height: '3px', width: '30px', background: 'linear-gradient(90deg, #ff9933 33.3%, #ffffff 33.3%, #ffffff 66.6%, #138808 66.6%)', borderRadius: '2px', marginTop: '10px' }}></div>
              </div>
@@ -977,8 +825,7 @@ const DashboardAnalysisPage = () => {
           </div>
         </div>
       )}
-
-    </div>
+    </DashboardLayout>
   );
 };
 

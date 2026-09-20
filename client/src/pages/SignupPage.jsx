@@ -8,6 +8,7 @@ const SignupPage = () => {
   const { login } = useContext(AuthContext);
   
   const [signupMethod, setSignupMethod] = useState('email'); // 'email' or 'mobile'
+  const [role, setRole] = useState('student'); // 'student' or 'parent'
   const [showPassword, setShowPassword] = useState(false);
   const [step, setStep] = useState(1);
   const [error, setError] = useState('');
@@ -46,27 +47,50 @@ const SignupPage = () => {
 
   const handleStep2Verify = () => {
     // Simulate OTP verification success
-    setStep(3);
+    if (role === 'parent') {
+      handleStep3Submit(); // Skip step 3 for parents
+    } else {
+      setStep(3);
+    }
   };
 
   const handleStep3Submit = async () => {
     setError('');
     try {
-      const res = await fetch('http://localhost:5000/api/auth/signup', {
+      let endpoint = 'http://localhost:5000/api/auth/signup';
+      let payload = { ...formData };
+      
+      if (role === 'parent') {
+        endpoint = 'http://localhost:5000/api/auth/parent/signup';
+        payload = { 
+          name: formData.name, 
+          email: formData.email, 
+          mobile: formData.mobile, 
+          password: formData.password 
+        };
+      }
+
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
       const data = await res.json();
       
       if (!res.ok) {
         setError(data.message || 'Signup failed');
+        setStep(1); // Go back if error
       } else {
         login(data.user, data.token);
-        navigate('/onboarding');
+        if (role === 'parent') {
+          navigate('/parent-dashboard');
+        } else {
+          navigate('/onboarding');
+        }
       }
     } catch (err) {
       setError('Server error, please try again.');
+      setStep(1);
     }
   };
 
@@ -167,6 +191,25 @@ const SignupPage = () => {
                 <div className="form-header left-aligned" style={{textAlign: 'center'}}>
                   <h2 style={{fontSize: '28px', fontWeight: '800'}}>Create Your Account</h2>
                   <p className="form-subtitle" style={{fontSize: '14px', maxWidth: '380px', margin: '10px auto 0', lineHeight: '1.5'}}>Join thousands of aspirants and start your CGL journey today with AI-powered preparation.</p>
+                </div>
+
+                <div className="login-tabs" style={{backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '5px', marginTop: '20px'}}>
+                  <button 
+                    type="button"
+                    className={`tab-btn ${role === 'student' ? 'active' : ''}`}
+                    onClick={() => setRole('student')}
+                    style={role === 'student' ? {backgroundColor: '#eff6ff', color: '#2563eb', boxShadow: 'none'} : {color: '#64748b'}}
+                  >
+                    <i className="fas fa-user-graduate"></i> Student
+                  </button>
+                  <button 
+                    type="button"
+                    className={`tab-btn ${role === 'parent' ? 'active' : ''}`}
+                    onClick={() => setRole('parent')}
+                    style={role === 'parent' ? {backgroundColor: '#eff6ff', color: '#2563eb', boxShadow: 'none'} : {color: '#64748b'}}
+                  >
+                    <i className="fas fa-user-friends"></i> Parent
+                  </button>
                 </div>
 
                 <div className="login-tabs" style={{backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '5px', marginTop: '30px'}}>

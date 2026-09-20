@@ -163,7 +163,7 @@ const CATopics = () => {
           <div className="catopic-grid">
             {/* Card 1 */}
             <div className="catopic-card">
-              <img src="/images/currentaffairs/catopic-nat.jpg" alt="National" className="catc-img" />
+              <img src="https://images.unsplash.com/photo-1532375810709-75b1da00537c?auto=format&fit=crop&w=400&q=80" alt="National" className="catc-img" />
               <div className="catc-body">
                 <h4>National</h4>
                 <p>Government policies, initiatives, important decisions and events from India.</p>
@@ -177,7 +177,7 @@ const CATopics = () => {
             </div>
             {/* Card 2 */}
             <div className="catopic-card">
-              <img src="/images/currentaffairs/catopic-int.jpg" alt="International" className="catc-img" />
+              <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&q=80" alt="International" className="catc-img" />
               <div className="catc-body">
                 <h4>International</h4>
                 <p>Global events, international relations, summits and important developments.</p>
@@ -191,7 +191,7 @@ const CATopics = () => {
             </div>
             {/* Card 3 */}
             <div className="catopic-card">
-              <img src="/images/currentaffairs/catopic-eco.jpg" alt="Economy" className="catc-img" />
+              <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=400&q=80" alt="Economy" className="catc-img" />
               <div className="catc-body">
                 <h4>Economy</h4>
                 <p>Budget, RBI, banking, inflation, economic surveys and more.</p>
@@ -205,7 +205,7 @@ const CATopics = () => {
             </div>
             {/* Card 4 */}
             <div className="catopic-card">
-              <img src="/images/currentaffairs/catopic-pol.jpg" alt="Polity" className="catc-img" />
+              <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=400&q=80" alt="Polity" className="catc-img" />
               <div className="catc-body">
                 <h4>Polity & Governance</h4>
                 <p>Constitution, government schemes, committees, bills and policies.</p>
@@ -219,7 +219,7 @@ const CATopics = () => {
             </div>
             {/* Card 5 */}
             <div className="catopic-card">
-              <img src="/images/currentaffairs/catopic-sci.jpg" alt="Science" className="catc-img" />
+              <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?auto=format&fit=crop&w=400&q=80" alt="Science" className="catc-img" />
               <div className="catc-body">
                 <h4>Science & Technology</h4>
                 <p>Space, ISRO, AI, new inventions and technological advancements.</p>
@@ -233,7 +233,7 @@ const CATopics = () => {
             </div>
             {/* Card 6 */}
             <div className="catopic-card">
-              <img src="/images/currentaffairs/catopic-env.jpg" alt="Environment" className="catc-img" />
+              <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=400&q=80" alt="Environment" className="catc-img" />
               <div className="catc-body">
                 <h4>Environment & Climate</h4>
                 <p>Climate change, COP, biodiversity, conservation and initiatives.</p>
@@ -247,7 +247,7 @@ const CATopics = () => {
             </div>
             {/* Card 7 */}
             <div className="catopic-card">
-              <img src="/images/currentaffairs/catopic-def.jpg" alt="Defence" className="catc-img" />
+              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=400&q=80" alt="Defence" className="catc-img" />
               <div className="catc-body">
                 <h4>Defence & Security</h4>
                 <p>Defence deals, military exercises, internal security developments.</p>
@@ -261,7 +261,7 @@ const CATopics = () => {
             </div>
             {/* Card 8 */}
             <div className="catopic-card">
-              <img src="/images/currentaffairs/catopic-sch.jpg" alt="Schemes" className="catc-img" />
+              <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=400&q=80" alt="Schemes" className="catc-img" />
               <div className="catc-body">
                 <h4>Schemes & Initiatives</h4>
                 <p>Government schemes, welfare programs and social initiatives.</p>
@@ -275,7 +275,7 @@ const CATopics = () => {
             </div>
             {/* Card 9 */}
             <div className="catopic-card">
-              <img src="/images/currentaffairs/catopic-spo.jpg" alt="Sports" className="catc-img" />
+              <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=400&q=80" alt="Sports" className="catc-img" />
               <div className="catc-body">
                 <h4>Sports</h4>
                 <p>Major sports events, tournaments, records and personalities.</p>
@@ -289,7 +289,7 @@ const CATopics = () => {
             </div>
             {/* Card 10 */}
             <div className="catopic-card">
-              <img src="/images/currentaffairs/catopic-awa.jpg" alt="Awards" className="catc-img" />
+              <img src="https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=400&q=80" alt="Awards" className="catc-img" />
               <div className="catc-body">
                 <h4>Awards & Honours</h4>
                 <p>National and international awards, important recognitions.</p>
@@ -303,7 +303,7 @@ const CATopics = () => {
             </div>
             {/* Card 11 */}
             <div className="catopic-card">
-              <img src="/images/currentaffairs/catopic-sum.jpg" alt="Summits" className="catc-img" />
+              <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=400&q=80" alt="Summits" className="catc-img" />
               <div className="catc-body">
                 <h4>Summits & Conferences</h4>
                 <p>Important summits, conferences and global meetings.</p>
@@ -317,7 +317,7 @@ const CATopics = () => {
             </div>
             {/* Card 12 */}
             <div className="catopic-card">
-              <img src="/images/currentaffairs/catopic-rep.jpg" alt="Reports" className="catc-img" />
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80" alt="Reports" className="catc-img" />
               <div className="catc-body">
                 <h4>Reports & Index</h4>
                 <p>Important reports, ranking indexes and global studies.</p>
@@ -331,7 +331,7 @@ const CATopics = () => {
             </div>
             {/* Card 13 */}
             <div className="catopic-card">
-              <img src="/images/currentaffairs/catopic-app.jpg" alt="Appointments" className="catc-img" />
+              <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=400&q=80" alt="Appointments" className="catc-img" />
               <div className="catc-body">
                 <h4>Appointments</h4>
                 <p>Key appointments in government, organizations and institutions.</p>
@@ -345,7 +345,7 @@ const CATopics = () => {
             </div>
             {/* Card 14 */}
             <div className="catopic-card">
-              <img src="/images/currentaffairs/catopic-misc.jpg" alt="Miscellaneous" className="catc-img" />
+              <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=400&q=80" alt="Miscellaneous" className="catc-img" />
               <div className="catc-body">
                 <h4>Miscellaneous</h4>
                 <p>Important and diverse topics from current affairs.</p>
@@ -438,35 +438,35 @@ const CATopics = () => {
 
             <div className="cat-ltu-list">
               <div className="cat-ltu-item">
-                <img src="/images/currentaffairs/cat-news1.jpg" alt="News" className="cat-ltu-img" />
+                <img src="https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=80&q=80" alt="News" className="cat-ltu-img" />
                 <div className="cat-ltu-body">
                   <h4>India to Host G20 Education Working Group Meet in 2026</h4>
                   <div className="cat-ltu-meta"><span className="cat-tag blue">International</span> | 12 Sep 2026</div>
                 </div>
               </div>
               <div className="cat-ltu-item">
-                <img src="/images/currentaffairs/cat-news2.jpg" alt="News" className="cat-ltu-img" />
+                <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=80&q=80" alt="News" className="cat-ltu-img" />
                 <div className="cat-ltu-body">
                   <h4>RBI Keeps Repo Rate Unchanged at 6.50%</h4>
                   <div className="cat-ltu-meta"><span className="cat-tag green">Economy</span> | 12 Sep 2026</div>
                 </div>
               </div>
               <div className="cat-ltu-item">
-                <img src="/images/currentaffairs/cat-news3.jpg" alt="News" className="cat-ltu-img" />
+                <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?auto=format&fit=crop&w=80&q=80" alt="News" className="cat-ltu-img" />
                 <div className="cat-ltu-body">
                   <h4>ISRO Launches INSAT-3DS Weather Satellite</h4>
                   <div className="cat-ltu-meta"><span className="cat-tag purple">Science & Tech</span> | 11 Sep 2026</div>
                 </div>
               </div>
               <div className="cat-ltu-item">
-                <img src="/images/currentaffairs/cat-news4.jpg" alt="News" className="cat-ltu-img" />
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=80&q=80" alt="News" className="cat-ltu-img" />
                 <div className="cat-ltu-body">
                   <h4>Rajasthan Implements Green Budgeting</h4>
                   <div className="cat-ltu-meta"><span className="cat-tag orange">Environment</span> | 11 Sep 2026</div>
                 </div>
               </div>
               <div className="cat-ltu-item">
-                <img src="/images/currentaffairs/cat-news5.jpg" alt="News" className="cat-ltu-img" />
+                <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=80&q=80" alt="News" className="cat-ltu-img" />
                 <div className="cat-ltu-body">
                   <h4>Khelo India Youth Games 2026 Announced</h4>
                   <div className="cat-ltu-meta"><span className="cat-tag pink">Sports</span> | 10 Sep 2026</div>
@@ -476,7 +476,7 @@ const CATopics = () => {
           </div>
 
           <div className="ca-quote-widget" style={{ padding: '24px', background: '#e0f2fe', borderColor: '#bae6fd' }}>
-            <img src="/images/currentaffairs/ca-kalam.jpg" alt="Kalam" className="ca-quote-img" style={{ width: '50px', height: '50px' }} />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/A._P._J._Abdul_Kalam.jpg/240px-A._P._J._Abdul_Kalam.jpg" alt="Kalam" className="ca-quote-img" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} />
             <div className="ca-quote-content">
               <p style={{ fontSize: '18px', color: '#0369a1' }}>"If you want to shine like a sun, first burn like a sun."</p>
               <strong style={{ color: '#0284c7' }}>— Dr. A.P.J. Abdul Kalam</strong>

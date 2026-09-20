@@ -31,7 +31,7 @@ const CADocsHero = ({ activeTab, setActiveTab }) => {
 
             <div className="ca-hero-image-side" style={{ width: '55%', maxWidth: '600px' }}>
               <div className="ca-hero-img-container">
-                <img src="/images/currentaffairs/cadocs-hero.png" alt="Documents Hero" className="ca-hero-img" style={{ transform: 'scale(1.15) translateY(20px)', filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.15))' }} />
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" alt="Documents Hero" className="ca-hero-img" style={{ transform: 'scale(1.15) translateY(20px)', filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.15))' }} />
 
                 {/* Post-it Notes */}
                 <div className="ca-post-it left-post-it" style={{ top: '-20px', left: '0', transform: 'rotate(-5deg)', background: '#eff6ff', padding: '16px' }}>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import DashboardLayout from '../components/DashboardLayout';
 import '../dashboard.css';
 
 const DashboardPage = () => {
@@ -24,136 +25,13 @@ const DashboardPage = () => {
   }, []);
 
   return (
-    <div className="dashboard-page animate-fade-in" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#f8fafc', fontFamily: "'Inter', sans-serif" }}>
-      
-      {/* Top Header */}
-      <header className="dashboard-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 30px', backgroundColor: 'white', borderBottom: '1px solid #e2e8f0', zIndex: 10 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-          <i className="fas fa-graduation-cap" style={{ fontSize: '28px', color: '#1e3a8a' }}></i>
-          <div>
-            <h1 style={{ margin: 0, fontSize: '20px', fontWeight: '800', color: '#0f172a' }}>CGLPrep AI</h1>
-            <p style={{ margin: 0, fontSize: '10px', color: '#1e3a8a', fontWeight: '600' }}>Plan • Practice • Crack CGL</p>
-          </div>
-        </div>
-
-        <div style={{ flex: 1, maxWidth: '600px', margin: '0 40px', position: 'relative' }}>
-          <i className="fas fa-search" style={{ position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }}></i>
-          <input 
-            type="text" 
-            placeholder="Search for topics, tests, current affairs... (e.g. Polity, Mock Test, Budget 2026)" 
-            style={{ width: '100%', padding: '12px 15px 12px 45px', border: '1px solid #e2e8f0', borderRadius: '8px', backgroundColor: '#f1f5f9', fontSize: '14px', outline: 'none' }} 
-          />
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          <button style={{ backgroundColor: '#2563eb', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-            <i className="fas fa-crown"></i> Upgrade Plan
-          </button>
-          
-          <div style={{ position: 'relative', cursor: 'pointer' }}>
-            <i className="far fa-bell" style={{ fontSize: '20px', color: '#475569' }}></i>
-            <span style={{ position: 'absolute', top: '-5px', right: '-5px', backgroundColor: '#ef4444', color: 'white', fontSize: '10px', fontWeight: 'bold', borderRadius: '50%', width: '16px', height: '16px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>3</span>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-            <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#475569', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: '700', fontSize: '14px' }}>
-              {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
-            </div>
-            <span style={{ fontSize: '14px', fontWeight: '600', color: '#334155' }}>{user?.name || 'User'} <i className="fas fa-chevron-down" style={{ fontSize: '10px', marginLeft: '5px' }}></i></span>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Layout */}
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+    <DashboardLayout>
+      <div className="db-main-container">
         
-        {/* Left Sidebar */}
-        <aside className="dashboard-sidebar" style={{ width: '260px', backgroundColor: '#0f172a', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
-          <nav style={{ padding: '20px 15px', flex: 1, overflowY: 'auto' }}>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '5px' }}>
-              <li className="nav-item" style={{ backgroundColor: '#1d4ed8', borderRadius: '8px' }}>
-                <Link to="/dashboard" style={{ color: 'white', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '600', fontSize: '14px' }}>
-                  <i className="fas fa-home" style={{ width: '20px', textAlign: 'center' }}></i> Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard-study-plan" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="far fa-calendar-alt" style={{ width: '20px', textAlign: 'center' }}></i> My Study Plan
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard-practice" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="fas fa-tasks" style={{ width: '20px', textAlign: 'center' }}></i> Practice Tests
-                </Link>
-              </li>
-              <li>
-                <Link to="/mock-tests" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="far fa-file-alt" style={{ width: '20px', textAlign: 'center' }}></i> Mock Tests
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard-pyq" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="fas fa-history" style={{ width: '20px', textAlign: 'center' }}></i> Previous Year Papers
-                </Link>
-              </li>
-              <li>
-                <Link to="/current-affairs" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="far fa-newspaper" style={{ width: '20px', textAlign: 'center' }}></i> Current Affairs
-                </Link>
-              </li>
-              <li>
-                <Link to="/post-predictor" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="fas fa-bullseye" style={{ width: '20px', textAlign: 'center' }}></i> Post Predictor
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard-analysis" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="fas fa-chart-bar" style={{ width: '20px', textAlign: 'center' }}></i> Performance Analytics
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard-notes" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="far fa-file-pdf" style={{ width: '20px', textAlign: 'center' }}></i> Notes & PDFs
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard-bookmarks" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="far fa-bookmark" style={{ width: '20px', textAlign: 'center' }}></i> Bookmarks
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard-discuss" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="far fa-comments" style={{ width: '20px', textAlign: 'center' }}></i> Discuss & Learn
-                </Link>
-              </li>
-              <li>
-                <Link to="/dashboard-settings" style={{ color: '#cbd5e1', textDecoration: 'none', padding: '12px 15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '500', fontSize: '14px' }}>
-                  <i className="fas fa-cog" style={{ width: '20px', textAlign: 'center' }}></i> Settings
-                </Link>
-              </li>
-            </ul>
-          </nav>
-          
-          <div style={{ padding: '20px', position: 'relative' }}>
-            <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '20px', textAlign: 'center' }}>
-              <i className="fas fa-trophy" style={{ color: '#fbbf24', fontSize: '24px', marginBottom: '10px' }}></i>
-              <h4 style={{ color: 'white', margin: '0 0 5px', fontSize: '15px' }}>Upgrade to Pro</h4>
-              <p style={{ color: '#cbd5e1', fontSize: '11px', margin: '0 0 15px', lineHeight: '1.4' }}>Get full access to all tests, PDFs and advanced analytics.</p>
-              <button style={{ backgroundColor: '#2563eb', color: 'white', border: 'none', width: '100%', padding: '10px', borderRadius: '8px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>Upgrade Now <i className="fas fa-arrow-right"></i></button>
-            </div>
-            
-            <div style={{ marginTop: '25px', textAlign: 'center' }}>
-              <p style={{ fontFamily: "'Caveat', cursive", color: '#e2e8f0', fontSize: '20px', margin: 0 }}>"Discipline today<br/>Results tomorrow."</p>
-              <div style={{ height: '3px', width: '40px', background: 'linear-gradient(90deg, #ff9933 33.3%, #ffffff 33.3%, #ffffff 66.6%, #138808 66.6%)', borderRadius: '2px', margin: '10px auto 0' }}></div>
-            </div>
-          </div>
-        </aside>
-
         {/* Center Content Area */}
-        <main style={{ flex: 1, padding: '30px', overflowY: 'auto' }}>
-          
+        <div style={{ flex: 1, padding: '15px 0' }}>    
           {/* Welcome Row */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '30px' }}>
+          <div className="db-welcome-row">
             <div>
               <p style={{ color: '#64748b', fontSize: '16px', margin: '0 0 5px' }}>Welcome Back,</p>
               <h2 style={{ color: '#0f172a', fontSize: '32px', fontWeight: '800', margin: '0 0 8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -164,7 +42,7 @@ const DashboardPage = () => {
               </p>
             </div>
             
-            <div style={{ position: 'relative', top: '10px', right: '30px', transform: 'rotate(-5deg)', textAlign: 'center' }}>
+            <div className="db-welcome-decorator">
                <h3 style={{ fontFamily: "'Caveat', cursive", fontSize: '24px', color: '#1e3a8a', margin: 0, lineHeight: '1.1' }}>
                  Same<br/>Aspiration<br/>Bigger<br/>Dreams!
                </h3>
@@ -172,7 +50,7 @@ const DashboardPage = () => {
             </div>
 
             {/* Free Trial Banner */}
-            <div style={{ backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '12px', padding: '20px', display: 'flex', alignItems: 'center', gap: '20px', minWidth: '350px' }}>
+            <div className="db-free-trial-banner">
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '5px' }}>
                   <i className="fas fa-crown" style={{ color: '#fbbf24', fontSize: '20px' }}></i>
@@ -193,8 +71,8 @@ const DashboardPage = () => {
           </div>
 
           {/* 5 Quick Actions */}
-          <div className="animate-fade-in delay-100" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '15px', marginBottom: '30px' }}>
-            <Link to="/dashboard" className="quick-action-card" style={{ textDecoration: 'none', backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '20px 15px', display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', transition: 'box-shadow 0.2s', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
+          <div className="db-quick-actions animate-fade-in delay-100">
+            <Link to="/dashboard-practice" className="quick-action-card" style={{ textDecoration: 'none', backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '20px 15px', display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', transition: 'box-shadow 0.2s', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
               <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#2563eb', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '18px', flexShrink: 0 }}><i className="fas fa-file-alt"></i></div>
               <div style={{ flex: 1 }}>
                 <h4 style={{ margin: '0 0 2px', fontSize: '13px', fontWeight: '700', color: '#0f172a' }}>Start Practice</h4>
@@ -249,7 +127,7 @@ const DashboardPage = () => {
               <span style={{ fontSize: '13px', color: '#64748b' }}>Let's get started! Your journey begins now.</span>
             </div>
             
-            <div style={{ display: 'flex', gap: '15px' }}>
+            <div className="db-overview-grid">
               <div className="stat-card" style={{ flex: 1, border: '1px solid #e2e8f0', borderRadius: '10px', padding: '20px 15px', display: 'flex', alignItems: 'center', gap: '15px' }}>
                 <div className="stat-card-icon-wrapper" style={{ width: '46px', height: '46px', borderRadius: '50%', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '20px' }}><i className="fas fa-file-signature"></i></div>
                 <div>
@@ -300,7 +178,7 @@ const DashboardPage = () => {
               <a href="#" style={{ color: '#2563eb', fontSize: '14px', fontWeight: '600', textDecoration: 'none' }}>View All <i className="fas fa-arrow-right"></i></a>
             </div>
             
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '15px' }}>
+            <div className="db-recommended-grid">
               <div style={{ border: '1px solid #e2e8f0', borderRadius: '10px', padding: '15px', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ display: 'flex', gap: '12px', marginBottom: '15px' }}>
                   <div style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '16px', flexShrink: 0 }}><i className="fas fa-book"></i></div>
@@ -348,7 +226,7 @@ const DashboardPage = () => {
           </div>
 
           {/* Bottom Row: Updates & Trend */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+          <div className="db-bottom-row">
             {/* Latest Updates */}
             <div style={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '25px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
@@ -475,10 +353,10 @@ const DashboardPage = () => {
                Made for India's Aspirants <i className="fas fa-heart" style={{ color: '#ef4444' }}></i>
             </div>
           </footer>
-        </main>
+        </div>
 
         {/* Right Sidebar */}
-        <aside style={{ width: '280px', backgroundColor: '#ffffff', borderLeft: '1px solid #e2e8f0', padding: '25px', display: 'flex', flexDirection: 'column', gap: '25px', overflowY: 'auto' }}>
+        <aside className="db-right-sidebar">
            {/* Goal */}
            <div style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
@@ -556,9 +434,8 @@ const DashboardPage = () => {
               </div>
            </div>
         </aside>
-
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 

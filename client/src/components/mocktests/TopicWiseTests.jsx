@@ -1,7 +1,36 @@
 import React, { useState } from 'react';
 
+import QuizModal from '../QuizModal';
+
 const TopicWiseTests = () => {
   const [openFaq, setOpenFaq] = useState(null);
+  
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [aiQuestions, setAiQuestions] = useState([]);
+
+  const handleStartTest = async (topic, difficulty) => {
+    setIsGenerating(true);
+    try {
+      const response = await fetch('http://localhost:5000/api/ai/generate-quiz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topic, difficulty, count: 10 })
+      });
+      const result = await response.json();
+      if (result.success) {
+        setAiQuestions(result.data);
+        setIsModalOpen(true);
+      } else {
+        alert(result.message);
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to start test.');
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   const toggleFaq = (idx) => {
     setOpenFaq(openFaq === idx ? null : idx);
@@ -32,6 +61,7 @@ const TopicWiseTests = () => {
 
   return (
     <div className="sect-container topic-container">
+      <QuizModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} questions={aiQuestions} title="Topic-Wise Test" />
       <div className="container">
         
         {/* ===== 3-Column Layout ===== */}
@@ -232,7 +262,13 @@ const TopicWiseTests = () => {
                     </div>
                   </div>
                   <div className="flt-card-right">
-                    <button className="btn-primary flt-start-btn">Start Test <i className="fas fa-arrow-right"></i></button>
+                    <button 
+                      className="btn-primary flt-start-btn" 
+                      onClick={() => handleStartTest(test.title, test.tags[0])}
+                      disabled={isGenerating}
+                    >
+                      {isGenerating ? 'Loading...' : 'Start Test'} <i className="fas fa-arrow-right"></i>
+                    </button>
                     <span className="flt-attempts">{test.attempts} Attempts</span>
                   </div>
                 </div>

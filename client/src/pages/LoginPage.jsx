@@ -1,18 +1,25 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import '../auth.css';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useContext(AuthContext);
 
   const [loginMethod, setLoginMethod] = useState('email'); // 'email' or 'mobile'
+  const [role, setRole] = useState('student'); // 'student', 'parent', 'admin'
+  const [isLogin, setIsLogin] = useState(location.pathname !== '/signup');
   const [showPassword, setShowPassword] = useState(false);
   
   const [formData, setFormData] = useState({
+    name: '',
     emailOrMobile: '',
-    password: ''
+    password: '',
+    examGoal: 'cgl2026',
+    appearYear: '2026',
+    prepLevel: 'intermediate',
   });
   const [error, setError] = useState('');
 
@@ -24,23 +31,51 @@ const LoginPage = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleLoginSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      let endpoint = isLogin ? 'http://localhost:5000/api/auth/login' : 'http://localhost:5000/api/auth/signup';
+      let payload = { ...formData };
+      
+      if (role === 'parent') {
+        endpoint = isLogin ? 'http://localhost:5000/api/auth/parent/login' : 'http://localhost:5000/api/auth/parent/signup';
+        if (loginMethod === 'email') {
+          payload = { ...formData, email: formData.emailOrMobile, mobile: '' };
+        } else {
+          payload = { ...formData, mobile: formData.emailOrMobile, email: '' };
+        }
+      } else if (role === 'admin') {
+        endpoint = 'http://localhost:5000/api/auth/admin/login'; // Admin only has login
+      } else if (!isLogin && role === 'student') {
+         // for student signup, backend expects email and mobile to be separated if we have them, 
+         // but our UI uses emailOrMobile. Let's just map it depending on loginMethod
+         if (loginMethod === 'email') {
+           payload = { ...formData, email: formData.emailOrMobile, mobile: '' };
+         } else {
+           payload = { ...formData, mobile: formData.emailOrMobile, email: '' };
+         }
+      }
+
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
       const data = await res.json();
       
       if (!res.ok) {
-        setError(data.message || 'Login failed');
+        setError(data.message || (isLogin ? 'Login failed' : 'Signup failed'));
       } else {
         login(data.user, data.token);
-        navigate('/dashboard');
+        if (role === 'student') {
+          navigate('/dashboard');
+        } else if (role === 'parent') {
+          navigate('/parent-dashboard');
+        } else {
+          navigate('/admin-dashboard'); // Replace with actual admin route if exists
+        }
       }
     } catch (err) {
       setError('Server error, please try again.');
@@ -143,24 +178,44 @@ const LoginPage = () => {
 
       {/* Right Column: Login Form */}
       <div className="login-form-area">
-        <div className="login-top-right">
-          <span>New to CGLPrep AI?</span>
-          <Link to="/signup" className="create-account-link">Create an Account &rarr;</Link>
-        </div>
-
         <div className="login-form-container">
           <div className="form-header">
             <Link to="/" className="form-logo">
               <span className="logo-icon"><i className="fas fa-graduation-cap"></i></span>
               <span className="logo-text"><strong>CGLPrep</strong> AI</span>
             </Link>
-            <p className="logo-tagline">Plan • Practice • Crack CGL</p>
+            <p className="logo-tagline">Plan \u2022 Practice \u2022 Crack CGL</p>
             
-            <h2>Login to Your Account</h2>
-            <p className="form-subtitle">Continue your preparation journey</p>
+            <h2>{isLogin ? 'Login to Your Account' : 'Create Your Account'}</h2>
+            <p className="form-subtitle">{isLogin ? 'Continue your preparation journey' : 'Join thousands of aspirants today'}</p>
           </div>
 
           {error && <div style={{padding: '10px', backgroundColor: '#fee2e2', color: '#ef4444', borderRadius: '8px', marginBottom: '15px', fontSize: '13px', textAlign: 'center'}}>{error}</div>}
+
+          {/* Role Selection */}
+          <div className="login-tabs" style={{ marginBottom: '10px' }}>
+            <button 
+              type="button"
+              className={`tab-btn ${role === 'student' ? 'active' : ''}`}
+              onClick={() => setRole('student')}
+            >
+              <i className="fas fa-user-graduate"></i> Student
+            </button>
+            <button 
+              type="button"
+              className={`tab-btn ${role === 'parent' ? 'active' : ''}`}
+              onClick={() => setRole('parent')}
+            >
+              <i className="fas fa-user-friends"></i> Parent
+            </button>
+            <button 
+              type="button"
+              className={`tab-btn ${role === 'admin' ? 'active' : ''}`}
+              onClick={() => { setRole('admin'); setIsLogin(true); }}
+            >
+              <i className="fas fa-user-shield"></i> Admin
+            </button>
+          </div>
 
           <div className="login-tabs">
             <button 
@@ -179,7 +234,17 @@ const LoginPage = () => {
             </button>
           </div>
 
-          <form className="auth-form" onSubmit={handleLoginSubmit}>
+          <form className="auth-form" onSubmit={handleSubmit}>
+            {!isLogin && (
+              <div className="input-group">
+                <label>Full Name</label>
+                <div className="input-wrapper">
+                  <i className="far fa-user icon-left"></i>
+                  <input name="name" value={formData.name} onChange={handleChange} type="text" placeholder="Enter your full name" required={!isLogin} />
+                </div>
+              </div>
+            )}
+
             {loginMethod === 'email' ? (
               <div className="input-group">
                 <label>Email Address</label>
@@ -207,7 +272,7 @@ const LoginPage = () => {
                   value={formData.password}
                   onChange={handleChange}
                   type={showPassword ? "text" : "password"} 
-                  placeholder="Enter your password" 
+                  placeholder={isLogin ? "Enter your password" : "Create a password"} 
                   required 
                 />
                 <button type="button" className="toggle-password" onClick={() => setShowPassword(!showPassword)}>
@@ -216,19 +281,45 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <div className="forgot-pwd-row">
-              <a href="#" className="forgot-pwd-link">Forgot Password?</a>
-            </div>
+            {isLogin ? (
+              <>
+                <div className="forgot-pwd-row">
+                  <a href="#" className="forgot-pwd-link">Forgot Password?</a>
+                </div>
+                <div className="keep-signed-in">
+                  <label className="checkbox-container">
+                    <input type="checkbox" defaultChecked />
+                    <span className="checkmark"></span>
+                    Keep me signed in
+                  </label>
+                </div>
+              </>
+            ) : (
+              <div className="keep-signed-in mt-2" style={{marginBottom: '15px'}}>
+                <label className="checkbox-container" style={{fontSize: '13px'}}>
+                  <input type="checkbox" required />
+                  <span className="checkmark"></span>
+                  I agree to the Terms & Conditions
+                </label>
+              </div>
+            )}
 
-            <div className="keep-signed-in">
-              <label className="checkbox-container">
-                <input type="checkbox" defaultChecked />
-                <span className="checkmark"></span>
-                Keep me signed in
-              </label>
-            </div>
+            <button type="submit" className="btn-login-submit">{isLogin ? 'Login as ' : 'Sign Up as '}{role.charAt(0).toUpperCase() + role.slice(1)} &rarr;</button>
 
-            <button type="submit" className="btn-login-submit">Login &rarr;</button>
+            {role !== 'admin' && (
+              <div className="login-redirect" style={{marginTop: '20px', textAlign: 'center'}}>
+                <span style={{color: '#64748b', fontSize: '14px'}}>
+                  {isLogin ? "Don't have an account?" : "Already have an account?"}
+                </span>{' '}
+                <button 
+                  type="button" 
+                  onClick={() => setIsLogin(!isLogin)} 
+                  style={{background: 'none', border: 'none', color: '#2563eb', fontWeight: '700', cursor: 'pointer', padding: 0, font: 'inherit'}}
+                >
+                  {isLogin ? 'Sign Up Here' : 'Login Here'}
+                </button>
+              </div>
+            )}
           </form>
 
           <div className="auth-divider">

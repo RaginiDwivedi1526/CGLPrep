@@ -1,7 +1,36 @@
 import React, { useState } from 'react';
 
+import QuizModal from '../QuizModal';
+
 const SectionalTests = () => {
   const [openFaq, setOpenFaq] = useState(null);
+  
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [aiQuestions, setAiQuestions] = useState([]);
+
+  const handleStartTest = async (topic, difficulty) => {
+    setIsGenerating(true);
+    try {
+      const response = await fetch('http://localhost:5000/api/ai/generate-quiz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topic, difficulty, count: 10 })
+      });
+      const result = await response.json();
+      if (result.success) {
+        setAiQuestions(result.data);
+        setIsModalOpen(true);
+      } else {
+        alert(result.message);
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to start test.');
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   const toggleFaq = (idx) => {
     setOpenFaq(openFaq === idx ? null : idx);
@@ -32,6 +61,7 @@ const SectionalTests = () => {
 
   return (
     <div className="sect-container">
+      <QuizModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} questions={aiQuestions} title="Sectional Test" />
       <div className="container">
         
         {/* ===== 3-Column Layout ===== */}
@@ -219,7 +249,13 @@ const SectionalTests = () => {
                     </div>
                   </div>
                   <div className="flt-card-right">
-                    <button className="btn-primary flt-start-btn">Start Test <i className="fas fa-arrow-right"></i></button>
+                    <button 
+                      className="btn-primary flt-start-btn" 
+                      onClick={() => handleStartTest(test.title, test.tags[0])}
+                      disabled={isGenerating}
+                    >
+                      {isGenerating ? 'Loading...' : 'Start Test'} <i className="fas fa-arrow-right"></i>
+                    </button>
                   </div>
                 </div>
               ))}
@@ -353,7 +389,7 @@ const SectionalTests = () => {
               <strong>— Rohit Kumar</strong>
               <span>Selected as Auditor (CGL 2023)</span>
             </div>
-            <img src="/images/mocktests/mock-rohit.jpg" alt="Rohit Kumar" className="st-img" />
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rohit" alt="Rohit Kumar" className="st-img" />
             <div className="st-postit">
               Practice<br/>Analyze<br/>Improve<br/>Repeat!
             </div>

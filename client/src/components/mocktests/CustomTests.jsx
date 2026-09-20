@@ -1,7 +1,50 @@
 import React, { useState } from 'react';
+import QuizModal from '../QuizModal';
 
 const CustomTests = () => {
   const [openSubject, setOpenSubject] = useState('gi'); // 'gi' is general intelligence
+  
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [aiQuestions, setAiQuestions] = useState([]);
+  
+  // Configuration State
+  const [numQuestions, setNumQuestions] = useState(50);
+  const [difficulty, setDifficulty] = useState('Moderate');
+  const [timePerQuestion, setTimePerQuestion] = useState(60); // seconds
+  const [testMode, setTestMode] = useState('Timed Test');
+  const [shuffleQuestions, setShuffleQuestions] = useState(true);
+  const [negativeMarking, setNegativeMarking] = useState(true);
+  const [showSolutionImmediately, setShowSolutionImmediately] = useState(false);
+  const [showTopicAnalysis, setShowTopicAnalysis] = useState(true);
+  const [includePyq, setIncludePyq] = useState(true);
+
+  const handleGenerateTest = async () => {
+    setIsGenerating(true);
+    try {
+      const response = await fetch('http://localhost:5000/api/ai/generate-quiz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          topic: 'Custom Mock Test',
+          difficulty: difficulty,
+          count: numQuestions === 'Custom' ? 10 : parseInt(numQuestions, 10)
+        })
+      });
+      const result = await response.json();
+      if (result.success) {
+        setAiQuestions(result.data);
+        setIsModalOpen(true);
+      } else {
+        alert(result.message);
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Failed to generate test. Make sure backend is running.');
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   const toggleSubject = (id) => {
     setOpenSubject(openSubject === id ? null : id);
@@ -145,47 +188,65 @@ const CustomTests = () => {
                 <div className="cust-stat-box">
                   <div className="cust-stat-icon purple-light"><i className="fas fa-question-circle"></i></div>
                   <span className="cust-stat-label">Total Questions</span>
-                  <strong className="cust-stat-val">50</strong>
+                  <strong className="cust-stat-val">{numQuestions}</strong>
                 </div>
                 <div className="cust-stat-box">
                   <div className="cust-stat-icon orange-light"><i className="far fa-clock"></i></div>
                   <span className="cust-stat-label">Total Duration</span>
-                  <strong className="cust-stat-val">60 Minutes</strong>
+                  <strong className="cust-stat-val">{testMode === 'Practice Mode' ? 'None' : numQuestions === 'Custom' ? 'Custom' : `${(numQuestions * timePerQuestion) / 60} Min`}</strong>
                 </div>
               </div>
 
               <div className="cust-form-group">
                 <label className="cust-form-label">Number of Questions</label>
                 <div className="cust-chips-grid">
-                  <div className="cust-chip">10</div>
-                  <div className="cust-chip">25</div>
-                  <div className="cust-chip active">50</div>
-                  <div className="cust-chip">75</div>
-                  <div className="cust-chip">100</div>
-                  <div className="cust-chip">Custom</div>
+                  {[10, 25, 50, 75, 100, 'Custom'].map(num => (
+                    <div 
+                      key={num} 
+                      className={`cust-chip ${numQuestions === num ? 'active' : ''}`}
+                      onClick={() => setNumQuestions(num)}
+                    >
+                      {num}
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <div className="cust-form-group">
                 <label className="cust-form-label">Difficulty Level <i className="fas fa-info-circle cust-info"></i></label>
                 <div className="cust-chips-grid diff-grid">
-                  <div className="cust-chip with-icon"><i className="fas fa-check-circle text-green"></i> Easy</div>
-                  <div className="cust-chip active with-icon"><i className="fas fa-check-square text-blue"></i> Moderate</div>
-                  <div className="cust-chip with-icon"><i className="fas fa-exclamation-triangle text-red"></i> Difficult</div>
-                  <div className="cust-chip with-icon"><i className="fas fa-adjust text-orange"></i> Mixed</div>
+                  {[
+                    { label: 'Easy', icon: 'fa-check-circle', color: 'text-green' },
+                    { label: 'Moderate', icon: 'fa-check-square', color: 'text-blue' },
+                    { label: 'Difficult', icon: 'fa-exclamation-triangle', color: 'text-red' },
+                    { label: 'Mixed', icon: 'fa-adjust', color: 'text-orange' }
+                  ].map(diff => (
+                    <div 
+                      key={diff.label}
+                      className={`cust-chip with-icon ${difficulty === diff.label ? 'active' : ''}`}
+                      onClick={() => setDifficulty(diff.label)}
+                    >
+                      <i className={`fas ${diff.icon} ${diff.color}`}></i> {diff.label}
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <div className="cust-form-group">
                 <label className="cust-form-label">Time per Question (Optional)</label>
                 <div className="cust-chips-grid time-grid">
-                  <div className="cust-chip active with-icon" style={{ flexDirection: 'column', alignItems: 'center', padding: '12px' }}>
-                    <div><i className="fas fa-check-circle text-blue"></i> <strong>Default</strong></div>
-                    <span style={{ fontSize: '10px', color: 'var(--blue-600)' }}>(As per exam)</span>
+                  <div 
+                    className={`cust-chip ${timePerQuestion === 60 ? 'active with-icon' : ''}`} 
+                    style={{ flexDirection: 'column', alignItems: 'center', padding: '12px' }}
+                    onClick={() => setTimePerQuestion(60)}
+                  >
+                    <div>{timePerQuestion === 60 && <i className="fas fa-check-circle text-blue"></i>} <strong>Default</strong></div>
+                    <span style={{ fontSize: '10px', color: timePerQuestion === 60 ? 'var(--blue-600)' : 'inherit' }}>(As per exam)</span>
                   </div>
-                  <div className="cust-chip" style={{ justifyContent: 'center' }}>1 Minute</div>
-                  <div className="cust-chip" style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                    <span>1.5 Minutes</span><span>2 Minutes</span>
+                  <div className={`cust-chip ${timePerQuestion === 60 ? 'active' : ''}`} style={{ justifyContent: 'center' }} onClick={() => setTimePerQuestion(60)}>1 Minute</div>
+                  <div className="cust-chip" style={{ flexDirection: 'column', justifyContent: 'center', padding: 0 }}>
+                    <div className={timePerQuestion === 90 ? 'active-sub' : ''} style={{padding: '8px', textAlign: 'center', borderBottom: '1px solid var(--gray-200)', background: timePerQuestion === 90 ? '#eff6ff' : 'transparent', color: timePerQuestion === 90 ? '#2563eb' : 'inherit', cursor: 'pointer'}} onClick={() => setTimePerQuestion(90)}>1.5 Minutes</div>
+                    <div className={timePerQuestion === 120 ? 'active-sub' : ''} style={{padding: '8px', textAlign: 'center', background: timePerQuestion === 120 ? '#eff6ff' : 'transparent', color: timePerQuestion === 120 ? '#2563eb' : 'inherit', cursor: 'pointer'}} onClick={() => setTimePerQuestion(120)}>2 Minutes</div>
                   </div>
                   <div className="cust-chip" style={{ flexDirection: 'column', justifyContent: 'center', textAlign: 'center' }}>
                     <i className="fas fa-info-circle text-gray-400"></i>
@@ -197,13 +258,13 @@ const CustomTests = () => {
               <div className="cust-form-group">
                 <label className="cust-form-label">Test Mode</label>
                 <div className="cust-mode-grid">
-                  <label className="cust-mode-card active">
-                    <input type="radio" name="testMode" defaultChecked />
+                  <label className={`cust-mode-card ${testMode === 'Timed Test' ? 'active' : ''}`}>
+                    <input type="radio" name="testMode" checked={testMode === 'Timed Test'} onChange={() => setTestMode('Timed Test')} />
                     <div className="cust-mode-icon blue-light"><i className="far fa-clock"></i></div>
                     <span className="cust-mode-title">Timed Test</span>
                   </label>
-                  <label className="cust-mode-card">
-                    <input type="radio" name="testMode" />
+                  <label className={`cust-mode-card ${testMode === 'Practice Mode' ? 'active' : ''}`}>
+                    <input type="radio" name="testMode" checked={testMode === 'Practice Mode'} onChange={() => setTestMode('Practice Mode')} />
                     <div className="cust-mode-icon"><i className="fas fa-file-alt"></i></div>
                     <div className="cust-mode-text">
                       <span className="cust-mode-title">Practice Mode</span>
@@ -216,15 +277,40 @@ const CustomTests = () => {
               <div className="cust-form-group">
                 <label className="cust-form-label">Additional Options</label>
                 <div className="cust-opts-grid">
-                  <label className="cust-sm-checkbox"><input type="checkbox" defaultChecked /><span className="cust-chkbox"></span> Shuffle Questions</label>
-                  <label className="cust-sm-checkbox"><input type="checkbox" defaultChecked /><span className="cust-chkbox"></span> Negative Marking <span className="cust-opt-sub">(As per SSC CGL)</span></label>
-                  <label className="cust-sm-checkbox"><input type="checkbox" /><span className="cust-chkbox"></span> Show Solution Immediately</label>
-                  <label className="cust-sm-checkbox"><input type="checkbox" defaultChecked /><span className="cust-chkbox"></span> Show Topic-wise Analysis</label>
-                  <label className="cust-sm-checkbox"><input type="checkbox" defaultChecked /><span className="cust-chkbox"></span> Include Previous Year Questions</label>
+                  <label className="cust-sm-checkbox">
+                    <input type="checkbox" checked={shuffleQuestions} onChange={(e) => setShuffleQuestions(e.target.checked)} />
+                    <span className="cust-chkbox"></span> Shuffle Questions
+                  </label>
+                  <label className="cust-sm-checkbox">
+                    <input type="checkbox" checked={negativeMarking} onChange={(e) => setNegativeMarking(e.target.checked)} />
+                    <span className="cust-chkbox"></span> Negative Marking <span className="cust-opt-sub">(As per SSC CGL)</span>
+                  </label>
+                  <label className="cust-sm-checkbox">
+                    <input type="checkbox" checked={showSolutionImmediately} onChange={(e) => setShowSolutionImmediately(e.target.checked)} />
+                    <span className="cust-chkbox"></span> Show Solution Immediately
+                  </label>
+                  <label className="cust-sm-checkbox">
+                    <input type="checkbox" checked={showTopicAnalysis} onChange={(e) => setShowTopicAnalysis(e.target.checked)} />
+                    <span className="cust-chkbox"></span> Show Topic-wise Analysis
+                  </label>
+                  <label className="cust-sm-checkbox">
+                    <input type="checkbox" checked={includePyq} onChange={(e) => setIncludePyq(e.target.checked)} />
+                    <span className="cust-chkbox"></span> Include Previous Year Questions
+                  </label>
                 </div>
               </div>
 
-              <button className="btn-primary cust-gen-btn">Generate Custom Test <i className="fas fa-arrow-right"></i></button>
+              <button 
+                className="btn-primary cust-gen-btn" 
+                onClick={handleGenerateTest}
+                disabled={isGenerating}
+              >
+                {isGenerating ? (
+                  <><i className="fas fa-spinner fa-spin"></i> Generating...</>
+                ) : (
+                  <>Generate Custom Test <i className="fas fa-arrow-right"></i></>
+                )}
+              </button>
 
             </div>
           </div>
@@ -260,35 +346,35 @@ const CustomTests = () => {
                   <div className="cp-icon blue-light"><i className="fas fa-question-circle"></i></div>
                   <div className="cp-content">
                     <span className="cp-label">Questions</span>
-                    <div className="cp-val"><strong>50 Questions</strong></div>
+                    <div className="cp-val"><strong>{numQuestions} Questions</strong></div>
                   </div>
                 </div>
                 <div className="cp-item">
                   <div className="cp-icon orange-light"><i className="fas fa-chart-line"></i></div>
                   <div className="cp-content">
                     <span className="cp-label">Difficulty</span>
-                    <div className="cp-val"><span className="flt-tag blue-outline">Moderate</span></div>
+                    <div className="cp-val"><span className="flt-tag blue-outline">{difficulty}</span></div>
                   </div>
                 </div>
                 <div className="cp-item">
                   <div className="cp-icon blue-light"><i className="far fa-clock"></i></div>
                   <div className="cp-content">
                     <span className="cp-label">Duration</span>
-                    <div className="cp-val"><strong>60 Minutes</strong> <span className="cp-sub">(1 min per question)</span></div>
+                    <div className="cp-val"><strong>{testMode === 'Practice Mode' ? 'No Limit' : numQuestions === 'Custom' ? 'Custom' : `${(numQuestions * timePerQuestion) / 60} Minutes`}</strong> <span className="cp-sub">({timePerQuestion / 60} min per question)</span></div>
                   </div>
                 </div>
                 <div className="cp-item">
                   <div className="cp-icon red-light"><i className="fas fa-minus-circle"></i></div>
                   <div className="cp-content">
                     <span className="cp-label">Negative Marking</span>
-                    <div className="cp-val"><strong>Yes</strong> <span className="cp-sub">(As per SSC CGL)</span></div>
+                    <div className="cp-val"><strong>{negativeMarking ? 'Yes' : 'No'}</strong> {negativeMarking && <span className="cp-sub">(As per SSC CGL)</span>}</div>
                   </div>
                 </div>
                 <div className="cp-item">
                   <div className="cp-icon green-light"><i className="fas fa-laptop"></i></div>
                   <div className="cp-content">
                     <span className="cp-label">Mode</span>
-                    <div className="cp-val"><strong>Timed Test</strong></div>
+                    <div className="cp-val"><strong>{testMode}</strong></div>
                   </div>
                 </div>
               </div>
@@ -390,6 +476,20 @@ const CustomTests = () => {
           </div>
         </div>
       </div>
+
+      <QuizModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        title="Custom AI Mock Test" 
+        questions={aiQuestions} 
+        config={{
+          timePerQuestion,
+          testMode,
+          negativeMarking,
+          showSolutionImmediately,
+          shuffleQuestions
+        }}
+      />
     </div>
   );
 };

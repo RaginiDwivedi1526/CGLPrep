@@ -1,10 +1,43 @@
 import React, { useState } from 'react';
+import QuizModal from '../QuizModal';
 
 const FullLengthTests = () => {
   const [openFaq, setOpenFaq] = useState(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [aiQuestions, setAiQuestions] = useState([]);
+  const [currentTestTitle, setCurrentTestTitle] = useState('Full Length Test');
 
   const toggleFaq = (idx) => {
     setOpenFaq(openFaq === idx ? null : idx);
+  };
+
+  const handleStartTest = async (testTitle) => {
+    setIsGenerating(true);
+    setCurrentTestTitle(testTitle);
+    try {
+      const response = await fetch('http://localhost:5000/api/ai/generate-quiz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          topic: testTitle,
+          difficulty: 'Moderate',
+          count: 10 // Simulating a smaller set for quick testing
+        })
+      });
+      const result = await response.json();
+      if (result.success) {
+        setAiQuestions(result.data);
+        setIsModalOpen(true);
+      } else {
+        alert(result.message);
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Failed to generate test. Make sure backend is running.');
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const tests = [
@@ -196,7 +229,17 @@ const FullLengthTests = () => {
                     </div>
                   </div>
                   <div className="flt-card-right">
-                    <button className="btn-primary flt-start-btn">Start Test <i className="fas fa-arrow-right"></i></button>
+                    <button 
+                      className="btn-primary flt-start-btn"
+                      onClick={() => handleStartTest(test.title)}
+                      disabled={isGenerating && currentTestTitle === test.title}
+                    >
+                      {isGenerating && currentTestTitle === test.title ? (
+                        <><i className="fas fa-spinner fa-spin"></i> Loading...</>
+                      ) : (
+                        <>Start Test <i className="fas fa-arrow-right"></i></>
+                      )}
+                    </button>
                     <span className="flt-attempts">{test.attempts} Attempts</span>
                   </div>
                 </div>
@@ -332,7 +375,7 @@ const FullLengthTests = () => {
                   <strong>— Ankit Sharma</strong>
                   <span>Selected as Income Tax Inspector (CGL 2023)</span>
                 </div>
-                <img src="/images/mocktests/mock-ankit.jpg" alt="Ankit Sharma" className="flt-author-img" />
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ankit" alt="Ankit Sharma" className="flt-author-img" />
               </div>
             </div>
 
@@ -351,6 +394,13 @@ const FullLengthTests = () => {
         </section>
 
       </div>
+
+      <QuizModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        title={currentTestTitle}
+        questions={aiQuestions} 
+      />
     </div>
   );
 };

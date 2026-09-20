@@ -37,7 +37,7 @@ const CAHero = ({ activeTab, setActiveTab }) => {
 
             <div className="ca-hero-image-side">
               <div className="ca-hero-img-container">
-                <img src="/images/currentaffairs/parliament-hero.png" alt="Indian Parliament" className="ca-hero-img" />
+                <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=800&q=80" alt="Indian Parliament" className="ca-hero-img" />
                 
                 {/* Floating Words */}
                 <span className="ca-float-word fw-1">NATIONAL</span>

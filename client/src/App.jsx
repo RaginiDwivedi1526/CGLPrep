@@ -83,11 +83,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/cgl-2026" element={<CGL2026 />} />
         <Route path="/features" element={<FeaturesPage />} />
-        <Route path="/mock-tests" element={<MockTestsPage />} />
         <Route path="/current-affairs" element={<CurrentAffairsPage />} />
         <Route path="/post-predictor" element={<PostPredictorPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/signup" element={<LoginPage />} />
         <Route path="/parent-login" element={<ParentLoginPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         
@@ -97,6 +96,7 @@ function App() {
         <Route path="/dashboard-analysis" element={<RequireAuth allowedRoles={['student']}><DashboardAnalysisPage /></RequireAuth>} />
         <Route path="/dashboard-study-plan" element={<RequireAuth allowedRoles={['student']}><DashboardStudyPlanPage /></RequireAuth>} />
         <Route path="/dashboard-practice" element={<RequireAuth allowedRoles={['student']}><DashboardPracticeTestsPage /></RequireAuth>} />
+        <Route path="/dashboard-mock-tests" element={<RequireAuth allowedRoles={['student']}><MockTestsPage /></RequireAuth>} />
         <Route path="/dashboard-pyq" element={<RequireAuth allowedRoles={['student']}><DashboardPyqPage /></RequireAuth>} />
         <Route path="/dashboard-notes" element={<RequireAuth allowedRoles={['student']}><DashboardNotesPage /></RequireAuth>} />
         <Route path="/dashboard-bookmarks" element={<RequireAuth allowedRoles={['student']}><DashboardBookmarksPage /></RequireAuth>} />

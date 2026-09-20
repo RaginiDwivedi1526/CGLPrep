@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import DashboardLayout from '../components/DashboardLayout';
 import MockTestsHero from '../components/mocktests/MockTestsHero';
 import SectionalTestsHero from '../components/mocktests/SectionalTestsHero';
 import TopicWiseHero from '../components/mocktests/TopicWiseHero';
@@ -15,10 +16,12 @@ const MockTestsPage = () => {
   }, []);
 
   return (
-    <div className="mock-tests-page">
-      {activeTab === 'sectional' ? <SectionalTestsHero /> : activeTab === 'topic' ? <TopicWiseHero /> : activeTab === 'pyq' ? <PyqHero /> : activeTab === 'custom' ? <CustomTestsHero /> : <MockTestsHero />}
-      <MockTestsGrid activeTab={activeTab} setActiveTab={setActiveTab} />
-    </div>
+    <DashboardLayout>
+      <div className="mock-tests-page">
+        {activeTab === 'sectional' ? <SectionalTestsHero /> : activeTab === 'topic' ? <TopicWiseHero /> : activeTab === 'pyq' ? <PyqHero /> : activeTab === 'custom' ? <CustomTestsHero /> : <MockTestsHero />}
+        <MockTestsGrid activeTab={activeTab} setActiveTab={setActiveTab} />
+      </div>
+    </DashboardLayout>
   );
 };
 

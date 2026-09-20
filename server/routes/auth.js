@@ -50,6 +50,46 @@ router.post('/signup', async (req, res) => {
   }
 });
 
+// @route   POST /api/auth/parent/signup
+// @desc    Register parent
+router.post('/parent/signup', async (req, res) => {
+  const { name, email, mobile, password } = req.body;
+
+  try {
+    let parent = await Parent.findOne({ $or: [{ email: email || 'nevermatch' }, { mobile: mobile || 'nevermatch' }] });
+    if (parent) {
+      return res.status(400).json({ message: 'Parent already exists' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    parent = new Parent({
+      name,
+      email: email || undefined, // undefined prevents unique index errors for empty strings
+      mobile: mobile || undefined,
+      password: hashedPassword
+    });
+
+    await parent.save();
+
+    const payload = {
+      user: {
+        id: parent.id,
+        role: 'parent'
+      }
+    };
+
+    jwt.sign(payload, JWT_SECRET, { expiresIn: 360000 }, (err, token) => {
+      if (err) throw err;
+      res.json({ token, user: { id: parent.id, name: parent.name, role: 'parent' } });
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // @route   POST /api/auth/login
 // @desc    Authenticate user & get token
 router.post('/login', async (req, res) => {

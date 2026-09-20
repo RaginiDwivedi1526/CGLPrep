@@ -1,8 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ParentSidebar from '../components/ParentSidebar';
+import { AuthContext } from '../context/AuthContext';
 
 const ParentOverallProgressPage = () => {
+  const { user } = useContext(AuthContext);
+  const studentName = user?.studentName || 'your child';
+  const parentName = user?.name || 'Parent';
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -42,8 +47,8 @@ const ParentOverallProgressPage = () => {
               </div>
               <div style={{ textAlign: 'left' }}>
                 <p style={{ margin: 0, fontSize: '10px', color: '#64748b' }}>Welcome,</p>
-                <h4 style={{ margin: 0, fontSize: '13px', fontWeight: '700', color: '#0f172a' }}>Rakesh Kumar Thakur</h4>
-                <p style={{ margin: 0, fontSize: '10px', color: '#94a3b8' }}>(Pankaj's Father)</p>
+                <h3 style={{ margin: 0, fontSize: '14px', fontWeight: '800', color: '#1e3a8a' }}>{parentName}</h3>
+                <p style={{ margin: 0, fontSize: '10px', color: '#94a3b8' }}>({studentName}'s Parent)</p>
               </div>
               <i className="fas fa-chevron-down" style={{ fontSize: '12px', color: '#94a3b8' }}></i>
             </div>
@@ -61,8 +66,8 @@ const ParentOverallProgressPage = () => {
           {/* Header Row */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '25px' }}>
             <div>
-              <h1 style={{ margin: '0 0 5px', fontSize: '28px', fontWeight: '800', color: '#1e3a8a' }}>Overall Progress</h1>
-              <p style={{ margin: 0, fontSize: '15px', color: '#475569' }}>A complete view of Pankaj's SSC CGL preparation journey.</p>
+              <h2 style={{ margin: '0 0 5px', fontSize: '28px', fontWeight: '800', color: '#0f172a' }}>Overall Progress</h2>
+              <p style={{ margin: 0, fontSize: '15px', color: '#475569' }}>A complete view of {studentName}'s SSC CGL preparation journey.</p>
             </div>
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
@@ -185,9 +190,9 @@ const ParentOverallProgressPage = () => {
                 <div style={{ flex: 0.8, display: 'flex', flexDirection: 'column', gap: '15px' }}>
                    <div style={{ flex: 1, backgroundColor: '#f0fdf4', borderRadius: '12px', border: '1px solid #bbf7d0', padding: '20px', display: 'flex', gap: '15px' }}>
                      <i className="fas fa-trophy" style={{ fontSize: '32px', color: '#fbbf24' }}></i>
-                     <div>
-                       <h4 style={{ margin: '0 0 5px', fontSize: '14px', fontWeight: '700', color: '#166534' }}>You're on the right track!</h4>
-                       <p style={{ margin: 0, fontSize: '12px', color: '#15803d', lineHeight: '1.4' }}>Pankaj's readiness score has improved by 12% in the last month. Keep supporting his journey!</p>
+                     <div style={{ flex: 1 }}>
+                       <h4 style={{ margin: '0 0 5px', fontSize: '16px', fontWeight: '700', color: '#15803d' }}>Excellent Growth</h4>
+                       <p style={{ margin: 0, fontSize: '12px', color: '#15803d', lineHeight: '1.4' }}>{studentName}'s readiness score has improved by 12% in the last month. Keep supporting their journey!</p>
                      </div>
                    </div>
                    <div style={{ backgroundColor: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '20px', display: 'flex', gap: '15px', alignItems: 'center' }}>
@@ -279,8 +284,10 @@ const ParentOverallProgressPage = () => {
                 <div style={{ flex: 1.2, backgroundColor: 'white', padding: '20px', borderRadius: '16px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
                   <h3 style={{ margin: '0 0 15px', fontSize: '15px', fontWeight: '700', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px' }}><i className="fas fa-shield-alt" style={{ color: '#2563eb' }}></i> AI Summary</h3>
                   <div style={{ flex: 1, backgroundColor: '#f0f9ff', padding: '15px 20px', borderRadius: '12px', border: '1px solid #bae6fd', display: 'flex', alignItems: 'center', gap: '15px' }}>
-                    <i className="fas fa-robot" style={{ fontSize: '32px', color: '#1e3a8a' }}></i>
-                    <p style={{ margin: 0, fontSize: '13px', color: '#1e3a8a', lineHeight: '1.5', flex: 1 }}>Pankaj is showing consistent improvement. His strong performance in Quantitative Aptitude is a positive sign. Focus more on General Awareness and English to reach the target score.</p>
+                    <div style={{ display: 'flex', gap: '15px', alignItems: 'flex-start', flex: 1 }}>
+                      <i className="fas fa-robot" style={{ fontSize: '24px', color: '#1e3a8a', marginTop: '5px' }}></i>
+                      <p style={{ margin: 0, fontSize: '13px', color: '#1e3a8a', lineHeight: '1.5', flex: 1 }}>{studentName} is showing consistent improvement. Their strong performance in Quantitative Aptitude is a positive sign. Focus more on General Awareness and English to reach the target score.</p>
+                    </div>
                     <i className="fas fa-chevron-right" style={{ color: '#38bdf8' }}></i>
                   </div>
                 </div>

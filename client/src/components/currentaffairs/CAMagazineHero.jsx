@@ -39,7 +39,7 @@ const CAMagazineHero = ({ activeTab, setActiveTab }) => {
 
             <div className="ca-hero-image-side">
               <div className="ca-hero-img-container">
-                <img src="/images/currentaffairs/camag-hero.png" alt="Monthly Magazine Cover" className="ca-hero-img" style={{ transform: 'rotate(5deg) scale(1.1)', filter: 'drop-shadow(0 30px 40px rgba(0,0,0,0.15))' }} />
+                <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80" alt="Monthly Magazine Cover" className="ca-hero-img" style={{ transform: 'rotate(5deg) scale(1.1)', filter: 'drop-shadow(0 30px 40px rgba(0,0,0,0.15))' }} />
 
                 {/* Post-it Notes */}
                 <div className="ca-post-it left-post-it" style={{ top: '20px', left: '-20px', transform: 'rotate(-8deg)', background: '#eff6ff' }}>

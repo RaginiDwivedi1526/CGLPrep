@@ -40,7 +40,7 @@ const CATopicHero = ({ activeTab, setActiveTab }) => {
 
             <div className="ca-hero-image-side">
               <div className="ca-hero-img-container">
-                <img src="/images/currentaffairs/catopic-hero.png" alt="Topic-wise Study" className="ca-hero-img" style={{ filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.1))' }} />
+                <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=800&q=80" alt="Topic-wise Study" className="ca-hero-img" style={{ filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.1))' }} />
 
                 {/* Post-it Notes */}
                 <div className="ca-post-it left-post-it" style={{ top: '0px', left: '-10px', transform: 'rotate(-5deg)', background: '#eff6ff', padding: '12px' }}>

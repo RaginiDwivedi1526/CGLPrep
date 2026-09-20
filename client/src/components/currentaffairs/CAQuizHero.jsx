@@ -39,7 +39,7 @@ const CAQuizHero = ({ activeTab, setActiveTab }) => {
 
             <div className="ca-hero-image-side">
               <div className="ca-hero-img-container">
-                <img src="/images/currentaffairs/caquiz-hero.png" alt="Quiz Hero" className="ca-hero-img" style={{ transform: 'scale(1.1)', filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.1))' }} />
+                <img src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&w=800&q=80" alt="Quiz Hero" className="ca-hero-img" style={{ transform: 'scale(1.1)', filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.1))' }} />
 
                 {/* Post-it Notes */}
                 <div className="ca-post-it left-post-it" style={{ top: '-10px', left: '10%', transform: 'rotate(-6deg)', background: '#eff6ff', padding: '16px' }}>

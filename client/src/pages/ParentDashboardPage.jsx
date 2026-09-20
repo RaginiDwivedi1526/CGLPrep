@@ -1,8 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ParentSidebar from '../components/ParentSidebar';
+import { AuthContext } from '../context/AuthContext';
 
 const ParentDashboardPage = () => {
+  const { user } = useContext(AuthContext);
+  const studentName = user?.studentName || 'your child';
+  const parentName = user?.name || 'Parent';
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -42,8 +47,8 @@ const ParentDashboardPage = () => {
               </div>
               <div style={{ textAlign: 'left' }}>
                 <p style={{ margin: 0, fontSize: '10px', color: '#64748b' }}>Welcome,</p>
-                <h4 style={{ margin: 0, fontSize: '13px', fontWeight: '700', color: '#0f172a' }}>Rakesh Kumar Thakur</h4>
-                <p style={{ margin: 0, fontSize: '10px', color: '#94a3b8' }}>(Pankaj's Father)</p>
+                <h3 style={{ margin: 0, fontSize: '14px', fontWeight: '800', color: '#1e3a8a' }}>{parentName}</h3>
+                <p style={{ margin: 0, fontSize: '10px', color: '#94a3b8' }}>({studentName}'s Parent)</p>
               </div>
               <i className="fas fa-chevron-down" style={{ fontSize: '12px', color: '#94a3b8' }}></i>
             </div>
@@ -56,8 +61,8 @@ const ParentDashboardPage = () => {
           {/* Header Row */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '25px' }}>
             <div>
-              <h1 style={{ margin: '0 0 5px', fontSize: '28px', fontWeight: '800', color: '#1e3a8a' }}>Welcome, Rakesh Kumar Thakur! <span style={{ fontSize: '24px' }}>👋</span></h1>
-              <p style={{ margin: 0, fontSize: '15px', color: '#475569' }}>Here's how Pankaj is progressing in his SSC CGL journey.</p>
+              <h2 style={{ color: '#0f172a', fontSize: '28px', fontWeight: '800', margin: '0 0 5px' }}>Overview Dashboard</h2>
+              <p style={{ margin: 0, fontSize: '15px', color: '#475569' }}>Here's how {studentName} is progressing in their SSC CGL journey.</p>
             </div>
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
@@ -96,8 +101,8 @@ const ParentDashboardPage = () => {
                     </div>
                     
                     <div style={{ flex: 1 }}>
-                      <h4 style={{ margin: '0 0 5px', fontSize: '16px', fontWeight: '700', color: '#16a34a' }}>Good Progress!</h4>
-                      <p style={{ margin: '0 0 10px', fontSize: '13px', color: '#475569', lineHeight: '1.4' }}>Pankaj is on the right track. Keep supporting his journey!</p>
+                      <h4 style={{ margin: '0 0 5px', fontSize: '16px', fontWeight: '700', color: '#166534' }}>Good Progress!</h4>
+                      <p style={{ margin: '0 0 10px', fontSize: '13px', color: '#475569', lineHeight: '1.4' }}>{studentName} is on the right track. Keep supporting their journey!</p>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#16a34a', fontSize: '14px', fontWeight: '700' }}>
                         <i className="fas fa-arrow-up"></i> 12% <span style={{ color: '#94a3b8', fontSize: '11px', fontWeight: '500' }}>vs last month</span>
                       </div>
@@ -323,7 +328,10 @@ const ParentDashboardPage = () => {
 
                   <div style={{ display: 'flex', gap: '15px', backgroundColor: '#f0f9ff', padding: '15px', borderRadius: '12px', border: '1px solid #bae6fd', marginBottom: '20px' }}>
                     <i className="fas fa-robot" style={{ fontSize: '24px', color: '#1e3a8a', marginTop: '5px' }}></i>
-                    <p style={{ margin: 0, fontSize: '13px', color: '#1e3a8a', lineHeight: '1.5' }}>Pankaj is showing consistent improvement. Focus more on General Awareness and English to boost overall score.</p>
+                    <div>
+                      <h4 style={{ margin: '0 0 5px', fontSize: '16px', fontWeight: '800', color: '#1e3a8a' }}>AI Insight</h4>
+                      <p style={{ margin: 0, fontSize: '13px', color: '#1e3a8a', lineHeight: '1.5' }}>{studentName} is showing consistent improvement. Focus more on General Awareness and English to boost overall score.</p>
+                    </div>
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>

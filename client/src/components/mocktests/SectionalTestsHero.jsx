@@ -38,7 +38,7 @@ const SectionalTestsHero = () => {
 
           <div className="mock-hero-image-side">
             <div className="mock-hero-img-wrapper">
-              <img src="/images/mocktests/mock-sectional-hero.jpg" alt="Student holding books" />
+              <img src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&w=800&q=80" alt="Student holding books" />
             </div>
 
             {/* Handwritten texts */}

@@ -39,7 +39,7 @@ const CAYearHero = ({ activeTab, setActiveTab }) => {
 
             <div className="ca-hero-image-side" style={{ width: '55%', maxWidth: '600px' }}>
               <div className="ca-hero-img-container">
-                <img src="/images/currentaffairs/cayear-hero.png" alt="Year-wise Hero" className="ca-hero-img" style={{ transform: 'scale(1.1) translateY(10px)', filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.15))' }} />
+                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80" alt="Year-wise Hero" className="ca-hero-img" style={{ transform: 'scale(1.1) translateY(10px)', filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.15))' }} />
 
                 {/* Post-it Notes */}
                 <div className="ca-post-it left-post-it" style={{ top: '10px', left: '-20px', transform: 'rotate(-5deg)', background: '#eff6ff', padding: '16px' }}>

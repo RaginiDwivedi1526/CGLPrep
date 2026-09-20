@@ -88,7 +88,7 @@ const CAYear = () => {
             <div className="cyg-card active">
               <div className="cygc-img-wrap">
                 <span className="cygc-tag"><i className="fas fa-star text-white"></i> Current Year</span>
-                <img src="/images/currentaffairs/cayear-2026.jpg" alt="2026" />
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="2026" />
                 <div className="cygc-overlay"><h3>2026</h3></div>
               </div>
               <div className="cygc-body">
@@ -100,7 +100,7 @@ const CAYear = () => {
             
             <div className="cyg-card">
               <div className="cygc-img-wrap">
-                <img src="/images/currentaffairs/cayear-2025.jpg" alt="2025" />
+                <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=300&q=80" alt="2025" />
                 <div className="cygc-overlay"><h3>2025</h3></div>
               </div>
               <div className="cygc-body">
@@ -112,7 +112,7 @@ const CAYear = () => {
 
             <div className="cyg-card">
               <div className="cygc-img-wrap">
-                <img src="/images/currentaffairs/cayear-2024.jpg" alt="2024" />
+                <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=300&q=80" alt="2024" />
                 <div className="cygc-overlay"><h3>2024</h3></div>
               </div>
               <div className="cygc-body">
@@ -124,7 +124,7 @@ const CAYear = () => {
 
             <div className="cyg-card">
               <div className="cygc-img-wrap">
-                <img src="/images/currentaffairs/cayear-2023.jpg" alt="2023" />
+                <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=300&q=80" alt="2023" />
                 <div className="cygc-overlay"><h3>2023</h3></div>
               </div>
               <div className="cygc-body">
@@ -136,7 +136,7 @@ const CAYear = () => {
 
             <div className="cyg-card">
               <div className="cygc-img-wrap">
-                <img src="/images/currentaffairs/cayear-2022.jpg" alt="2022" />
+                <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=300&q=80" alt="2022" />
                 <div className="cygc-overlay"><h3>2022</h3></div>
               </div>
               <div className="cygc-body">
@@ -148,7 +148,7 @@ const CAYear = () => {
 
             <div className="cyg-card">
               <div className="cygc-img-wrap">
-                <img src="/images/currentaffairs/cayear-2021.jpg" alt="2021" />
+                <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=300&q=80" alt="2021" />
                 <div className="cygc-overlay"><h3>2021</h3></div>
               </div>
               <div className="cygc-body">
@@ -160,7 +160,7 @@ const CAYear = () => {
 
             <div className="cyg-card">
               <div className="cygc-img-wrap">
-                <img src="/images/currentaffairs/cayear-2020.jpg" alt="2020" />
+                <img src="https://images.unsplash.com/photo-1491841573634-28140fc7ced7?auto=format&fit=crop&w=300&q=80" alt="2020" />
                 <div className="cygc-overlay"><h3>2020</h3></div>
               </div>
               <div className="cygc-body">
@@ -172,7 +172,7 @@ const CAYear = () => {
 
             <div className="cyg-card">
               <div className="cygc-img-wrap">
-                <img src="/images/currentaffairs/cayear-2019.jpg" alt="2019" />
+                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=300&q=80" alt="2019" />
                 <div className="cygc-overlay"><h3>2019</h3></div>
               </div>
               <div className="cygc-body">
@@ -232,35 +232,35 @@ const CAYear = () => {
               </div>
               <ul className="cysb-list">
                 <li>
-                  <img src="/images/currentaffairs/cayear-add1.jpg" alt="News" />
+                  <img src="https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=80&q=80" alt="News" />
                   <div className="cysbl-info">
                     <h4>India to Host G20 Education Working Group Meet in 2026</h4>
                   </div>
                   <span className="cysbl-date">12 Sep 2026</span>
                 </li>
                 <li>
-                  <img src="/images/currentaffairs/cayear-add2.jpg" alt="News" />
+                  <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=80&q=80" alt="News" />
                   <div className="cysbl-info">
                     <h4>RBI Keeps Repo Rate Unchanged at 6.50%</h4>
                   </div>
                   <span className="cysbl-date">12 Sep 2026</span>
                 </li>
                 <li>
-                  <img src="/images/currentaffairs/cayear-add3.jpg" alt="News" />
+                  <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?auto=format&fit=crop&w=80&q=80" alt="News" />
                   <div className="cysbl-info">
                     <h4>Rajasthan Becomes 1st State to Implement 'Green Budgeting'</h4>
                   </div>
                   <span className="cysbl-date">11 Sep 2026</span>
                 </li>
                 <li>
-                  <img src="/images/currentaffairs/cayear-add4.jpg" alt="News" />
+                  <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=80&q=80" alt="News" />
                   <div className="cysbl-info">
                     <h4>UN Adopts Global Pact on AI Governance</h4>
                   </div>
                   <span className="cysbl-date">11 Sep 2026</span>
                 </li>
                 <li>
-                  <img src="/images/currentaffairs/cayear-add5.jpg" alt="News" />
+                  <img src="https://images.unsplash.com/photo-1532375810709-75b1da00537c?auto=format&fit=crop&w=80&q=80" alt="News" />
                   <div className="cysbl-info">
                     <h4>ISRO Launches INSAT-3DS Weather Satellite</h4>
                   </div>
@@ -387,7 +387,7 @@ const CAYear = () => {
           </div>
 
           <div className="ca-quote-widget" style={{ padding: '24px', background: '#eff6ff', borderColor: '#bfdbfe' }}>
-            <img src="/images/currentaffairs/ca-kalam.jpg" alt="Kalam" className="ca-quote-img" style={{ width: '60px', height: '60px' }} />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/A._P._J._Abdul_Kalam.jpg/240px-A._P._J._Abdul_Kalam.jpg" alt="Kalam" className="ca-quote-img" style={{ width: '60px', height: '60px', borderRadius: '50%', objectFit: 'cover' }} />
             <div className="ca-quote-content">
               <p style={{ fontSize: '16px', color: '#1e3a8a' }}>"Failure will never overtake me if my determination to succeed is strong enough."</p>
               <strong style={{ color: '#1e40af' }}>— Dr. A.P.J. Abdul Kalam</strong>

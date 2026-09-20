@@ -1,9 +1,55 @@
 import React, { useState } from 'react';
 import PyqDetailsModal from './PyqDetailsModal';
+import QuizModal from '../QuizModal';
 
 const PyqTests = () => {
   const [openFaq, setOpenFaq] = useState(null);
   const [selectedPaper, setSelectedPaper] = useState(null);
+  
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [aiQuestions, setAiQuestions] = useState([]);
+  
+  const [progressData, setProgressData] = useState(null);
+  
+  React.useEffect(() => {
+    // Fetch progress data on mount
+    const fetchProgress = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/progress/summary?userId=123');
+        const data = await res.json();
+        if (data.success) {
+          setProgressData(data.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch progress summary:', err);
+      }
+    };
+    fetchProgress();
+  }, []);
+
+  const handleStartTest = async (topic, difficulty) => {
+    setIsGenerating(true);
+    try {
+      const response = await fetch('http://localhost:5000/api/ai/generate-quiz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topic, difficulty, count: 25 })
+      });
+      const result = await response.json();
+      if (result.success) {
+        setAiQuestions(result.data);
+        setIsModalOpen(true);
+      } else {
+        alert(result.message);
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to start test.');
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   const toggleFaq = (idx) => {
     setOpenFaq(openFaq === idx ? null : idx);
@@ -17,16 +63,106 @@ const PyqTests = () => {
     setSelectedPaper(null);
   };
 
-  const papers = [
-    { title: 'SSC CGL 2024 - Tier I (All Shifts)', questions: 100, minutes: 60, marks: 200, isLatest: true },
-    { title: 'SSC CGL 2024 - Tier II (All Papers)', questions: 'Varies', minutes: 180, marks: 'Varies' },
-    { title: 'SSC CGL 2023 - Tier I (All Shifts)', questions: 100, minutes: 60, marks: 200 },
-    { title: 'SSC CGL 2023 - Tier II (All Papers)', questions: 'Varies', minutes: 180, marks: 'Varies' },
-    { title: 'SSC CGL 2022 - Tier I (All Shifts)', questions: 100, minutes: 60, marks: 200 },
-    { title: 'SSC CGL 2022 - Tier II (All Papers)', questions: 'Varies', minutes: 180, marks: 'Varies' },
-    { title: 'SSC CGL 2021 - Tier I (All Shifts)', questions: 100, minutes: 60, marks: 200 },
-    { title: 'SSC CGL 2021 - Tier II (All Papers)', questions: 'Varies', minutes: 180, marks: 'Varies' }
-  ];
+const TreeNode = ({ node, onStartTest, defaultExpanded = false }) => {
+  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+  
+  const isLeaf = !node.children || node.children.length === 0;
+  
+  return (
+    <div className="pyq-tree-node" style={{ marginLeft: '20px', position: 'relative' }}>
+      {/* Subtle border for tree line */}
+      <div style={{ position: 'absolute', left: '-12px', top: '15px', bottom: '-5px', width: '1px', backgroundColor: '#e2e8f0' }}></div>
+      
+      <div 
+        className="pyq-tree-item" 
+        style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'space-between',
+          padding: '8px 12px', 
+          cursor: isLeaf ? 'default' : 'pointer',
+          borderRadius: '6px',
+          backgroundColor: isExpanded && !isLeaf ? '#f8fafc' : 'transparent',
+          position: 'relative'
+        }}
+        onClick={() => !isLeaf && setIsExpanded(!isExpanded)}
+      >
+        {/* Horizontal tree branch line */}
+        <div style={{ position: 'absolute', left: '-12px', top: '20px', width: '12px', height: '1px', backgroundColor: '#e2e8f0' }}></div>
+        
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {!isLeaf ? (
+            <i className={`fas ${isExpanded ? 'fa-folder-open' : 'fa-folder'}`} style={{ color: '#3b82f6', fontSize: '14px', width: '16px' }}></i>
+          ) : (
+            <i className="far fa-file-alt" style={{ color: '#64748b', fontSize: '14px', width: '16px' }}></i>
+          )}
+          <span style={{ fontSize: '14px', fontWeight: isLeaf ? '500' : '600', color: '#1e293b' }}>{node.title}</span>
+        </div>
+        
+        {isLeaf && (
+          <button 
+            className="btn-outline-sm" 
+            style={{ padding: '4px 10px', fontSize: '11px', color: '#2563eb', borderColor: '#2563eb' }}
+            onClick={() => onStartTest(node.title, 'Moderate')}
+          >
+            Start Practice
+          </button>
+        )}
+      </div>
+      
+      {isExpanded && !isLeaf && (
+        <div className="pyq-tree-children" style={{ marginTop: '4px' }}>
+          {node.children.map((child, idx) => (
+            <TreeNode key={idx} node={child} onStartTest={onStartTest} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const treeData = [
+  {
+    title: "SSC CGL",
+    children: [
+      {
+        title: "Previous Year Papers",
+        children: [
+          {
+            title: "2024",
+            children: [
+              { title: "09 September - Shift 1", type: "paper" },
+              { title: "09 September - Shift 2", type: "paper" },
+              { title: "10 September - Shift 1", type: "paper" }
+            ]
+          },
+          {
+            title: "2023",
+            children: [
+              { title: "14 July - Shift 1", type: "paper" },
+              { title: "14 July - Shift 2", type: "paper" }
+            ]
+          },
+          {
+            title: "2022",
+            children: [
+              { title: "01 December - Shift 1", type: "paper" }
+            ]
+          }
+        ]
+      },
+      {
+        title: "Practice Test",
+        children: [
+          { title: "Quantitative Aptitude", type: "test" },
+          { title: "Reasoning", type: "test" },
+          { title: "English", type: "test" },
+          { title: "General Awareness", type: "test" }
+        ]
+      }
+    ]
+  }
+];
 
   const faqs1 = [
     "Are the previous year papers available with solutions?",
@@ -47,6 +183,7 @@ const PyqTests = () => {
 
   return (
     <div className="sect-container pyq-container">
+      <QuizModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} questions={aiQuestions} title="Previous Year Paper" />
       <div className="container">
         
         {/* ===== 3-Column Layout ===== */}
@@ -149,31 +286,10 @@ const PyqTests = () => {
               </div>
             </div>
 
-            {/* Test Cards List */}
-            <div className="flt-cards-container">
-              {papers.map((test, index) => (
-                <div className="flt-test-card pyq-card" key={index}>
-                  <div className="pyq-card-icon">
-                    <i className="fas fa-clipboard-list"></i>
-                  </div>
-                  <div className="flt-card-mid" style={{ flex: 1 }}>
-                    <div className="pyq-title-row">
-                      <h3 className="sect-card-title">{test.title}</h3>
-                      {test.isLatest && <span className="flt-tag green" style={{ fontSize: '10px' }}>Latest</span>}
-                    </div>
-                    <div className="pyq-sub">Actual Questions | With Detailed Solutions</div>
-                    <div className="flt-card-meta">
-                      <span><i className="fas fa-question-circle"></i> {test.questions} {test.questions !== 'Varies' ? 'Questions' : ''}</span>
-                      <span><i className="far fa-clock"></i> {test.minutes} Minutes</span>
-                      <span><i className="fas fa-bullseye"></i> {test.marks} {test.marks !== 'Varies' ? 'Marks' : ''}</span>
-                      <span><i className="fas fa-laptop"></i> CBT (Online)</span>
-                    </div>
-                  </div>
-                  <div className="pyq-card-actions">
-                    <button className="btn-outline-sm pyq-btn" onClick={() => openModal(test)}>View Details</button>
-                    <button className="btn-primary pyq-btn">Start Practice <i className="fas fa-arrow-right"></i></button>
-                  </div>
-                </div>
+            {/* Tree View Container */}
+            <div className="pyq-tree-container" style={{ backgroundColor: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #e2e8f0', minHeight: '400px' }}>
+              {treeData.map((node, idx) => (
+                <TreeNode key={idx} node={node} onStartTest={handleStartTest} defaultExpanded={true} />
               ))}
             </div>
 
@@ -196,61 +312,58 @@ const PyqTests = () => {
                 <div className="tw-circ-chart">
                   <div className="flt-circular-progress" style={{ width: '100px', height: '100px' }}>
                     <div className="flt-circle-inner">
-                      <span className="flt-pct" style={{ fontSize: '24px' }}>68%</span>
-                      <span className="flt-pct-label">Papers Practiced</span>
+                      <span className="flt-pct" style={{ fontSize: '24px' }}>{progressData ? progressData.overallStats.accuracy : 0}%</span>
+                      <span className="flt-pct-label">Accuracy Rate</span>
                     </div>
                     <svg viewBox="0 0 36 36" className="circular-chart green">
                       <path className="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                      <path className="circle" strokeDasharray="68, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      <path className="circle" strokeDasharray={`${progressData ? progressData.overallStats.accuracy : 0}, 100`} d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                     </svg>
                   </div>
                 </div>
                 <div className="tw-perf-stats">
                   <div className="tw-stat-item">
                     <div className="tw-stat-icon blue"><i className="fas fa-layer-group"></i></div>
-                    <div className="tw-stat-info"><strong>27</strong><span>Total Papers</span></div>
+                    <div className="tw-stat-info"><strong>{progressData ? progressData.overallStats.totalTests : 0}</strong><span>Total Tests</span></div>
                   </div>
                   <div className="tw-stat-item">
                     <div className="tw-stat-icon green"><i className="fas fa-check-circle"></i></div>
-                    <div className="tw-stat-info"><strong>18</strong><span>Completed</span></div>
+                    <div className="tw-stat-info"><strong>{progressData ? progressData.overallStats.totalQuestions : 0}</strong><span>Questions Done</span></div>
                   </div>
                   <div className="tw-stat-item">
                     <div className="tw-stat-icon orange"><i className="fas fa-clock"></i></div>
-                    <div className="tw-stat-info"><strong>6</strong><span>In Progress</span></div>
+                    <div className="tw-stat-info"><strong>{progressData && progressData.recentTests ? progressData.recentTests.length : 0}</strong><span>Recent Log</span></div>
                   </div>
                   <div className="tw-stat-item">
-                    <div className="tw-stat-icon red"><i className="fas fa-times-circle"></i></div>
-                    <div className="tw-stat-info"><strong>3</strong><span>Not Attempted</span></div>
+                    <div className="tw-stat-icon red"><i className="fas fa-fire"></i></div>
+                    <div className="tw-stat-info"><strong>Active</strong><span>Status</span></div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Year-wise Trend Widget */}
+            {/* Subject-wise Performance Widget */}
             <div className="flt-widget-card">
               <div className="flt-widget-header no-border">
-                <h3>Year-wise Paper Trend</h3>
-                <div className="tw-topic-select" style={{ fontSize: '11px', padding: '4px 8px' }}>Tier I <i className="fas fa-chevron-down"></i></div>
+                <h3>Subject-wise Performance</h3>
               </div>
               
-              <div className="pyq-bar-chart">
-                <div className="pbc-y-axis"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div>
-                <div className="pbc-bars">
-                  <div className="pbc-col"><div className="pbc-bar remaining" style={{ height: '50%' }}></div><div className="pbc-bar attempted" style={{ height: '30%' }}></div><span>2016</span></div>
-                  <div className="pbc-col"><div className="pbc-bar remaining" style={{ height: '40%' }}></div><div className="pbc-bar attempted" style={{ height: '35%' }}></div><span>2017</span></div>
-                  <div className="pbc-col"><div className="pbc-bar remaining" style={{ height: '30%' }}></div><div className="pbc-bar attempted" style={{ height: '40%' }}></div><span>2018</span></div>
-                  <div className="pbc-col"><div className="pbc-bar remaining" style={{ height: '45%' }}></div><div className="pbc-bar attempted" style={{ height: '30%' }}></div><span>2019</span></div>
-                  <div className="pbc-col"><div className="pbc-bar remaining" style={{ height: '40%' }}></div><div className="pbc-bar attempted" style={{ height: '35%' }}></div><span>2020</span></div>
-                  <div className="pbc-col"><div className="pbc-bar remaining" style={{ height: '35%' }}></div><div className="pbc-bar attempted" style={{ height: '45%' }}></div><span>2021</span></div>
-                  <div className="pbc-col"><div className="pbc-bar remaining" style={{ height: '35%' }}></div><div className="pbc-bar attempted" style={{ height: '50%' }}></div><span>2022</span></div>
-                  <div className="pbc-col"><div className="pbc-bar remaining" style={{ height: '25%' }}></div><div className="pbc-bar attempted" style={{ height: '60%' }}></div><span>2023</span></div>
-                  <div className="pbc-col"><div className="pbc-bar remaining" style={{ height: '30%' }}></div><div className="pbc-bar attempted" style={{ height: '55%' }}></div><span>2024</span></div>
-                  <div className="pbc-col"><div className="pbc-bar remaining" style={{ height: '40%' }}></div><div className="pbc-bar attempted" style={{ height: '20%' }}></div><span>2025</span></div>
-                </div>
-              </div>
-              <div className="pbc-legend">
-                <span><span className="pbc-dot green"></span> Attempted</span>
-                <span><span className="pbc-dot blue-light"></span> Remaining</span>
+              <div className="pyq-bar-chart" style={{ height: '180px', display: 'flex', alignItems: 'flex-end', gap: '15px', justifyContent: 'center' }}>
+                {progressData && progressData.subjects ? (
+                  progressData.subjects.map((sub, idx) => (
+                    <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', flex: 1 }}>
+                      <div style={{ width: '100%', maxWidth: '30px', height: '120px', position: 'relative', backgroundColor: '#e2e8f0', borderRadius: '4px 4px 0 0' }}>
+                        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: `${Math.max(sub.progress, 5)}%`, backgroundColor: sub.color, borderRadius: '4px 4px 0 0' }}></div>
+                        <span style={{ position: 'absolute', top: '-20px', left: '50%', transform: 'translateX(-50%)', fontSize: '10px', fontWeight: '700', color: '#0f172a' }}>{sub.progress}%</span>
+                      </div>
+                      <span style={{ fontSize: '10px', color: '#64748b', fontWeight: '600', textAlign: 'center', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', width: '100%' }}>
+                        {sub.name.split(' ')[0]}
+                      </span>
+                    </div>
+                  ))
+                ) : (
+                  <div style={{ alignSelf: 'center', color: '#64748b', fontSize: '13px', width: '100%', textAlign: 'center' }}>Take tests to see subject stats...</div>
+                )}
               </div>
             </div>
 

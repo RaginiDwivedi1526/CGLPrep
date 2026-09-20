@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const OnboardingPage = () => {
+  const { user } = useContext(AuthContext);
   const [examGoal, setExamGoal] = useState('cgl2026');
   const [prepLevel, setPrepLevel] = useState('beginner');
   const [appearYear, setAppearYear] = useState('2026');
@@ -98,7 +100,7 @@ const OnboardingPage = () => {
           <div>
             <p style={{ color: '#64748b', fontSize: '14px', fontWeight: '600', marginBottom: '8px' }}>Step 1 of 3</p>
             <h1 style={{ color: '#0f172a', fontSize: '32px', fontWeight: '800', margin: '0 0 10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-              Hi Pankaj! <span style={{ fontSize: '28px' }}>👋</span>
+              Hi {user?.name || 'Student'}! <span style={{ fontSize: '28px' }}>👋</span>
             </h1>
             <h2 style={{ color: '#1e3a8a', fontSize: '28px', fontWeight: '800', margin: '0 0 15px' }}>
               Let's Personalize Your CGL Journey

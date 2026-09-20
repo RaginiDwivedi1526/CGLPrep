@@ -20,7 +20,7 @@ const CABottomGrid = () => {
 
           <div className="ca-ana-grid">
             <div className="ca-ana-card">
-              <img src="/images/currentaffairs/ca-ana1.jpg" alt="Monetary Policy" />
+              <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=300&q=80" alt="Monetary Policy" />
               <h4>Monetary Policy 2026<br/>- What it means for SSC CGL?</h4>
               <div className="ca-ana-meta">
                 <span>12 Sep 2026</span>
@@ -28,7 +28,7 @@ const CABottomGrid = () => {
               </div>
             </div>
             <div className="ca-ana-card">
-              <img src="/images/currentaffairs/ca-ana2.jpg" alt="International Org" />
+              <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=300&q=80" alt="International Org" />
               <h4>Important International<br/>Organisations for SSC CGL</h4>
               <div className="ca-ana-meta">
                 <span>11 Sep 2026</span>
@@ -36,7 +36,7 @@ const CABottomGrid = () => {
               </div>
             </div>
             <div className="ca-ana-card">
-              <img src="/images/currentaffairs/ca-ana3.jpg" alt="Climate" />
+              <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=300&q=80" alt="Climate" />
               <h4>India's Climate Commitments<br/>and Recent Initiatives</h4>
               <div className="ca-ana-meta">
                 <span>10 Sep 2026</span>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import DashboardLayout from '../components/DashboardLayout';
 import CAHero from '../components/currentaffairs/CAHero';
 import CAMagazineHero from '../components/currentaffairs/CAMagazineHero';
 import CATopicHero from '../components/currentaffairs/CATopicHero';
@@ -25,16 +24,16 @@ import CAYearPreFooter from '../components/currentaffairs/CAYearPreFooter';
 import '../currentaffairs.css';
 
 const CurrentAffairsPage = () => {
-  const [activeTab, setActiveTab] = useState('year');
+  const [activeTab, setActiveTab] = useState('daily');
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="ca-page-wrapper">
-      <Header />
-      <main>
+    <DashboardLayout>
+      <div className="ca-page-wrapper">
+        <main>
         {activeTab === 'year' ? (
           <CAYearHero activeTab={activeTab} setActiveTab={setActiveTab} />
         ) : activeTab === 'docs' ? (
@@ -59,10 +58,10 @@ const CurrentAffairsPage = () => {
           ) : activeTab === 'topic' ? (
             <CATopics />
           ) : activeTab === 'magazine' ? (
-            <CAMagazine />
+            <CAMagazine setActiveTab={setActiveTab} />
           ) : (
             <>
-              <CATopGrid />
+              <CATopGrid setActiveTab={setActiveTab} />
               <CAMiddleGrid1 />
               <CAMiddleGrid2 />
               <CABottomGrid />
@@ -72,8 +71,8 @@ const CurrentAffairsPage = () => {
         
         {activeTab === 'year' ? <CAYearPreFooter /> : activeTab === 'docs' ? <CADocsPreFooter /> : activeTab === 'quiz' ? <CAQuizPreFooter /> : activeTab === 'topic' ? <CATopicPreFooter /> : activeTab === 'magazine' ? <CAMagPreFooter /> : <CAPreFooter />}
       </main>
-      <Footer />
-    </div>
+      </div>
+    </DashboardLayout>
   );
 };
 

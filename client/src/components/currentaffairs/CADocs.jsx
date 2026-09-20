@@ -246,7 +246,7 @@ const CADocs = () => {
             <h3>Union Budget 2026</h3>
             <p>Complete Analysis & Key Highlights</p>
             <div className="cdf-body">
-              <img src="/images/currentaffairs/cadocs-budget.jpg" alt="Budget 2026" className="cdf-img" />
+              <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=300&q=80" alt="Budget 2026" className="cdf-img" />
               <ul className="cdf-list">
                 <li><i className="fas fa-check-circle text-green"></i> Key Announcements</li>
                 <li><i className="fas fa-check-circle text-green"></i> Important Schemes</li>
@@ -309,7 +309,7 @@ const CADocs = () => {
           </div>
 
           <div className="ca-quote-widget" style={{ padding: '24px', background: '#eff6ff', borderColor: '#bfdbfe' }}>
-            <img src="/images/currentaffairs/ca-kalam.jpg" alt="Kalam" className="ca-quote-img" style={{ width: '60px', height: '60px' }} />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/A._P._J._Abdul_Kalam.jpg/240px-A._P._J._Abdul_Kalam.jpg" alt="Kalam" className="ca-quote-img" style={{ width: '60px', height: '60px', borderRadius: '50%', objectFit: 'cover' }} />
             <div className="ca-quote-content">
               <p style={{ fontSize: '18px', color: '#1e3a8a' }}>"Knowledge is of no value unless you put it into practice."</p>
               <strong style={{ color: '#1e40af' }}>— Dr. A.P.J. Abdul Kalam</strong>
