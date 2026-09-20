@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGLPrep AI - AI-Powered Platform for SSC CGL Preparation</title>
+    <meta name="description" content="Personalized study plans, Real exam experience, Post prediction. Everything you need to crack SSC CGL — in one place.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ===================== HEADER / NAV ===================== -->
+    <header class="header" id="header">
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <span class="logo-icon"><i class="fas fa-graduation-cap"></i></span>
+                <span class="logo-text"><strong>CGLPrep</strong> AI</span>
+            </a>
+            <nav class="main-nav" id="mainNav">
+                <a href="#" class="nav-link active">Home</a>
+                <a href="#" class="nav-link">CGL 2026</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#" class="nav-link">Study</a>
+                <a href="#" class="nav-link">Mock Tests</a>
+                <a href="#" class="nav-link">Current Affairs</a>
+                <a href="#" class="nav-link">Post Predictor</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+                <a href="#success" class="nav-link">Success Stories</a>
+                <div class="nav-link dropdown-link">More <i class="fas fa-chevron-down"></i></div>
+            </nav>
+            <div class="header-actions">
+                <button class="btn-login" id="loginBtn">Login</button>
+                <button class="btn-primary btn-sm" id="getStartedBtn">Get Started</button>
+            </div>
+            <button class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===================== HERO SECTION ===================== -->
+    <section class="hero" id="hero">
+        <div class="container hero-inner">
+            <div class="hero-content">
+                <span class="hero-badge"><i class="fas fa-robot"></i> #1 AI-Powered Platform for SSC CGL</span>
+                <h1 class="hero-title">Your CGL Dream.<br><span>Our AI Guidance.</span></h1>
+                <p class="hero-desc">Personalized study plans, Real exam experience, Post prediction.<br>Everything you need to crack SSC CGL — in one place.</p>
+                <div class="hero-btns">
+                    <button class="btn-primary btn-lg"><i class="fas fa-rocket"></i> Start Free Now</button>
+                    <button class="btn-outline btn-lg"><i class="fas fa-play-circle"></i> Watch Video</button>
+                </div>
+                <div class="hero-trust">
+                    <div class="trust-avatars">
+                        <div class="avatar" style="background: #4f46e5;"><i class="fas fa-user"></i></div>
+                        <div class="avatar" style="background: #0ea5e9;"><i class="fas fa-user"></i></div>
+                        <div class="avatar" style="background: #10b981;"><i class="fas fa-user"></i></div>
+                        <div class="avatar" style="background: #f59e0b;"><i class="fas fa-user"></i></div>
+                    </div>
+                    <span>Trusted by <strong>1,00,000+ Aspirants</strong></span>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-img-wrapper">
+                    <img src="images/hero-student.png" alt="Student preparing for SSC CGL" id="heroImg">
+                    <div class="hero-floating-card card-dream">
+                        <i class="fas fa-star"></i>
+                        <span>Bigger Dream,<br>Let's Crack it.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-sidebar">
+                <h4>Product Features</h4>
+                <ul class="feature-list-mini">
+                    <li><i class="fas fa-brain"></i> AI Study Plan</li>
+                    <li><i class="fas fa-file-alt"></i> Mock Tests</li>
+                    <li><i class="fas fa-chart-bar"></i> Post Predictor</li>
+                    <li><i class="fas fa-newspaper"></i> Current Affairs</li>
+                    <li><i class="fas fa-book"></i> Previous Papers</li>
+                    <li><i class="fas fa-chart-line"></i> Performance Analytics</li>
+                    <li><i class="fas fa-tasks"></i> AI Tutor</li>
+                    <li><i class="fas fa-bug"></i> Mistake Book</li>
+                    <li><i class="fas fa-calculator"></i> Readiness Score</li>
+                </ul>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="100000">1,00,000+</span>
+                        <span class="stat-label">Active Learners</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">10,00,000+</span>
+                        <span class="stat-label">Questions Practiced</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50,000+</span>
+                        <span class="stat-label">Mock Tests Attempted</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">90%</span>
+                        <span class="stat-label">Improvement Rate</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">4.8/5</span>
+                        <span class="stat-label">Student Rating</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== EVERYTHING YOU NEED ===================== -->
+    <section class="features-strip" id="features">
+        <div class="container">
+            <h2 class="section-title">Everything You Need to Crack SSC CGL</h2>
+            <div class="features-row">
+                <div class="feature-card-mini">
+                    <div class="fc-icon blue"><i class="fas fa-brain"></i></div>
+                    <h4>AI Study Plan</h4>
+                    <p>Personalized for you</p>
+                </div>
+                <div class="feature-card-mini">
+                    <div class="fc-icon green"><i class="fas fa-file-alt"></i></div>
+                    <h4>Mock Tests</h4>
+                    <p>Real exam interface</p>
+                </div>
+                <div class="feature-card-mini">
+                    <div class="fc-icon purple"><i class="fas fa-history"></i></div>
+                    <h4>Previous Year Papers</h4>
+                    <p>Topic-wise & year-wise</p>
+                </div>
+                <div class="feature-card-mini">
+                    <div class="fc-icon orange"><i class="fas fa-newspaper"></i></div>
+                    <h4>Current Affairs</h4>
+                    <p>Daily updates + MCQs</p>
+                </div>
+                <div class="feature-card-mini">
+                    <div class="fc-icon red"><i class="fas fa-chart-bar"></i></div>
+                    <h4>Post Predictor</h4>
+                    <p>Find your best post</p>
+                </div>
+                <div class="feature-card-mini">
+                    <div class="fc-icon teal"><i class="fas fa-robot"></i></div>
+                    <h4>AI Tutor</h4>
+                    <p>Doubt solving 24/7</p>
+                </div>
+                <div class="feature-card-mini">
+                    <div class="fc-icon indigo"><i class="fas fa-chart-line"></i></div>
+                    <h4>Performance Analytics</h4>
+                    <p>Track & improve</p>
+                </div>
+                <div class="feature-card-mini">
+                    <div class="fc-icon pink"><i class="fas fa-book-open"></i></div>
+                    <h4>Notes & Revision</h4>
+                    <p>Smart study material</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== CGL 2026 HIGHLIGHTS + READINESS + STOPPING ===================== -->
+    <section class="info-section">
+        <div class="container">
+            <div class="info-grid-3">
+                <!-- CGL 2026 Key Highlights -->
+                <div class="info-card highlights-card">
+                    <h3>SSC CGL 2026 – Key Highlights</h3>
+                    <div class="highlight-item">
+                        <span class="hl-label">Exam Date</span>
+                        <div class="hl-box">
+                            <strong>12,256*</strong>
+                            <span>Tentative Vacancies</span>
+                        </div>
+                    </div>
+                    <div class="highlight-tags">
+                        <span class="tag">Aug – Sep 2026*</span>
+                        <span class="tag">Tier 1 (3 phases)</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="hl-label">Application</span>
+                        <div class="hl-box">
+                            <strong>Dec 2025*</strong>
+                            <span>Expected</span>
+                        </div>
+                    </div>
+                    <div class="eligibility-row">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Bachelor's Degree</span>
+                        <span class="tag-small">Eligibility</span>
+                    </div>
+                    <button class="btn-primary btn-sm w-full">View Complete CGL 2026 Guide →</button>
+                    <p class="note-small">* Information is an estimate. Refer to official SSC website.</p>
+                </div>
+
+                <!-- CGL Readiness Score -->
+                <div class="info-card readiness-card">
+                    <h3>Your CGL Readiness Score</h3>
+                    <p class="card-sub">You are on the right track! Keep going.</p>
+                    <div class="readiness-score-wrapper">
+                        <div class="circle-progress" data-percent="72">
+                            <svg viewBox="0 0 120 120">
+                                <circle class="bg" cx="60" cy="60" r="52"></circle>
+                                <circle class="fill" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="91.5"></circle>
+                            </svg>
+                            <span class="circle-text">72%</span>
+                        </div>
+                        <div class="readiness-subjects">
+                            <div class="subj"><span class="dot blue"></span> Quantitative <strong>82%</strong></div>
+                            <div class="subj"><span class="dot green"></span> Reasoning <strong>78%</strong></div>
+                            <div class="subj"><span class="dot orange"></span> English <strong>65%</strong></div>
+                            <div class="subj"><span class="dot red"></span> GK / Awareness <strong>58%</strong></div>
+                        </div>
+                    </div>
+                    <button class="btn-outline btn-sm w-full">Check My Readiness →</button>
+                </div>
+
+                <!-- What Is Stopping You -->
+                <div class="info-card stopping-card">
+                    <h3>What is Stopping You From Clearing CGL?</h3>
+                    <div class="stopping-stats">
+                        <div class="stop-stat">
+                            <i class="fas fa-times-circle red"></i>
+                            <strong>154</strong>
+                            <span>Wrong Attempts</span>
+                        </div>
+                        <div class="stop-stat">
+                            <i class="fas fa-clock orange"></i>
+                            <strong>18</strong>
+                            <span>Avg. Time / Q (sec)</span>
+                        </div>
+                        <div class="stop-stat">
+                            <i class="fas fa-forward blue"></i>
+                            <strong>172</strong>
+                            <span>Skipped Questions</span>
+                        </div>
+                    </div>
+                    <div class="weakness-list">
+                        <div class="weak-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Analogy Questions</span>
+                            <span class="weak-pct red">42%</span>
+                        </div>
+                        <div class="weak-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Profit & Loss</span>
+                            <span class="weak-pct orange">55%</span>
+                        </div>
+                        <div class="weak-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Reading Comprehension</span>
+                            <span class="weak-pct yellow">60%</span>
+                        </div>
+                    </div>
+                    <button class="btn-primary btn-sm w-full">Fix My Weak Areas →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== PERSONALIZED STUDY PLAN ===================== -->
+    <section class="study-plan-section">
+        <div class="container">
+            <div class="sp-header">
+                <h2 class="section-title">Your Personalized Study Plan <span class="badge-ai">Adaptive & AI-Powered</span></h2>
+                <p class="section-sub">Your plan changes as you improve. Focus where you need it most.</p>
+            </div>
+            <div class="study-plan-grid">
+                <div class="sp-sidebar">
+                    <h4>You Need to Work On</h4>
+                    <ul class="sp-topics">
+                        <li><span class="dot red"></span> Maths – Percentage (55/Q)</li>
+                        <li><span class="dot orange"></span> Polity – Laxmikanth (35/Q)</li>
+                        <li><span class="dot yellow"></span> English – Error Detection (21/Q)</li>
+                        <li><span class="dot blue"></span> Geometry – Triangles (26/Q)</li>
+                        <li class="divider"></li>
+                        <li><span class="dot gray"></span> Current Affairs – August (40/Q)</li>
+                    </ul>
+                    <button class="btn-primary btn-sm w-full">Get Your AI Study Plan →</button>
+                </div>
+                <div class="sp-main">
+                    <div class="sp-ai-card">
+                        <div class="sp-ai-icon"><i class="fas fa-robot"></i></div>
+                        <h3>Not just a plan.<br>A personal AI coach<br>that adapts to you.</h3>
+                        <ul class="sp-ai-features">
+                            <li><i class="fas fa-check"></i> Identifies Performance Gaps</li>
+                            <li><i class="fas fa-check"></i> Adapts Study Plan</li>
+                            <li><i class="fas fa-check"></i> Focus on Weak Topics</li>
+                            <li><i class="fas fa-check"></i> Maps Routine/Pattern Tracker</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== TOPIC MASTERY & MISTAKE BOOK ===================== -->
+    <section class="mastery-section">
+        <div class="container">
+            <div class="mastery-grid">
+                <div class="mastery-card">
+                    <h3>Topic Mastery & Mistake Book</h3>
+                    <div class="mastery-content">
+                        <div class="mastery-bars">
+                            <h4>Percentage</h4>
+                            <div class="progress-item">
+                                <span>Quantitative Aptitude</span>
+                                <div class="progress-bar"><div class="progress-fill blue" style="width: 78%"></div></div>
+                                <span>78%</span>
+                            </div>
+                            <div class="progress-item">
+                                <span>Reasoning</span>
+                                <div class="progress-bar"><div class="progress-fill green" style="width: 72%"></div></div>
+                                <span>72%</span>
+                            </div>
+                            <div class="progress-item">
+                                <span>English</span>
+                                <div class="progress-bar"><div class="progress-fill orange" style="width: 65%"></div></div>
+                                <span>65%</span>
+                            </div>
+                            <div class="progress-item">
+                                <span>General Awareness</span>
+                                <div class="progress-bar"><div class="progress-fill red" style="width: 55%"></div></div>
+                                <span>55%</span>
+                            </div>
+                        </div>
+                        <div class="mistake-book">
+                            <h4>Your Mistake Book</h4>
+                            <div class="mistake-list">
+                                <div class="mistake-item">
+                                    <span class="m-num">15</span>
+                                    <span>Quantitative</span>
+                                </div>
+                                <div class="mistake-item">
+                                    <span class="m-num">12</span>
+                                    <span>Reasoning</span>
+                                </div>
+                                <div class="mistake-item">
+                                    <span class="m-num">8</span>
+                                    <span>English</span>
+                                </div>
+                                <div class="mistake-item">
+                                    <span class="m-num">14</span>
+                                    <span>GK</span>
+                                </div>
+                            </div>
+                            <button class="btn-outline btn-sm">Review Mistakes →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== AI POST PREDICTOR + POST PREFERENCE ===================== -->
+    <section class="predictor-section">
+        <div class="container">
+            <div class="predictor-grid">
+                <!-- AI Post Predictor -->
+                <div class="predictor-card">
+                    <h3>AI Post Predictor</h3>
+                    <p>Your plan changes as you improve & preferences.</p>
+                    <div class="predictor-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Expected Test Score</label>
+                                <input type="text" value="180" class="form-input" id="predScore">
+                            </div>
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select class="form-input" id="predCategory">
+                                    <option>General</option>
+                                    <option>OBC</option>
+                                    <option>SC</option>
+                                    <option>ST</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Preferred Location</label>
+                            <input type="text" value="Delhi / NCR" class="form-input" id="predLocation">
+                        </div>
+                        <button class="btn-primary btn-sm w-full" id="predictBtn"><i class="fas fa-magic"></i> Predict My Posts →</button>
+                    </div>
+                    <div class="predictor-results">
+                        <h4>Your Possible Posts</h4>
+                        <div class="post-result">
+                            <span class="post-tag green">Probability</span>
+                            <span class="post-name"><i class="fas fa-check-circle green"></i> Tax Assistant</span>
+                            <span class="post-pct">High</span>
+                        </div>
+                        <div class="post-result">
+                            <span class="post-tag yellow">Probability</span>
+                            <span class="post-name"><i class="fas fa-minus-circle yellow"></i> Auditor (CAG)</span>
+                            <span class="post-pct">Medium</span>
+                        </div>
+                        <div class="post-result">
+                            <span class="post-tag blue">Probability</span>
+                            <span class="post-name"><i class="fas fa-minus-circle blue"></i> Inspector (CBI)</span>
+                            <span class="post-pct">Low</span>
+                        </div>
+                        <div class="post-result">
+                            <span class="post-tag orange">Probability</span>
+                            <span class="post-name"><i class="fas fa-times-circle orange"></i> Sub-Inspector (Enforcement)</span>
+                            <span class="post-pct">Low</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Post Preference Optimizer -->
+                <div class="pref-card">
+                    <h3>Post Preference Optimizer</h3>
+                    <p>Already know your target posts?<br>Optimize your post preference order based on previous cut-offs, vacancies and your profile.</p>
+                    <div class="pref-items">
+                        <div class="pref-item">
+                            <span class="pref-num">1st</span>
+                            <span>Tax Assistant</span>
+                        </div>
+                        <div class="pref-item">
+                            <span class="pref-num">2nd</span>
+                            <span>Auditor (C&AG)</span>
+                        </div>
+                        <div class="pref-item">
+                            <span class="pref-num">3rd</span>
+                            <span>Upper Division Clerk</span>
+                        </div>
+                        <div class="pref-item">
+                            <span class="pref-num">4th</span>
+                            <span>Inspector (Postal Dept.)</span>
+                        </div>
+                        <div class="pref-item">
+                            <span class="pref-num">5th</span>
+                            <span>Statistical Investigator</span>
+                        </div>
+                    </div>
+                    <button class="btn-outline btn-sm w-full">Optimize My Preferences →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== REAL EXAM EXPERIENCE + CURRENT AFFAIRS ===================== -->
+    <section class="exam-affairs-section">
+        <div class="container">
+            <div class="ea-grid">
+                <!-- Real SSC Exam Experience -->
+                <div class="exam-card">
+                    <h3>Real SSC Exam Experience</h3>
+                    <div class="exam-features">
+                        <div class="ef-item"><i class="fas fa-layer-group"></i> Latest pattern & difficulty level</div>
+                        <div class="ef-item"><i class="fas fa-chart-bar"></i> All India Ranking & Percentile</div>
+                        <div class="ef-item"><i class="fas fa-analytics"></i> Detailed performance analysis</div>
+                        <div class="ef-item"><i class="fas fa-users"></i> Compare with topper's attempts</div>
+                    </div>
+                    <button class="btn-primary btn-sm">Take a Free Mock Test →</button>
+                </div>
+                <!-- Current Affairs -->
+                <div class="affairs-card">
+                    <h3>Current Affairs – Stay Ahead</h3>
+                    <div class="affairs-grid">
+                        <div class="affair-item">
+                            <div class="affair-img"><i class="fas fa-landmark"></i></div>
+                            <p>Budget 2026 Key Highlights for SSC</p>
+                        </div>
+                        <div class="affair-item">
+                            <div class="affair-img"><i class="fas fa-satellite"></i></div>
+                            <p>ISRO's Gaganyaan SSC+H with crew</p>
+                        </div>
+                        <div class="affair-item">
+                            <div class="affair-img"><i class="fas fa-trophy"></i></div>
+                            <p>India wins Asia Cup 2026</p>
+                        </div>
+                    </div>
+                    <button class="btn-outline btn-sm">More Current Affairs →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== WHY STUDENTS CHOOSE ===================== -->
+    <section class="why-choose-section">
+        <div class="container">
+            <h2 class="section-title">Why Students Choose CGLPrep AI</h2>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h4>CGL-Focused Platform</h4>
+                    <p>100% focused on SSC CGL.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-brain"></i></div>
+                    <h4>AI-Powered Preparation</h4>
+                    <p>Personalized just for you.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-file-alt"></i></div>
+                    <h4>Real Exam Experience</h4>
+                    <p>Latest pattern & analysis.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h4>Post Predictor & Guidance</h4>
+                    <p>Data-backed post insights.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-sync-alt"></i></div>
+                    <h4>Regular Updates</h4>
+                    <p>Daily news & question updates.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-rupee-sign"></i></div>
+                    <h4>Affordable & Frequent</h4>
+                    <p>Current affairs daily.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== WHY PARENTS TRUST ===================== -->
+    <section class="parents-section">
+        <div class="container">
+            <h2 class="section-title">Why Parents Trust CGLPrep AI</h2>
+            <p class="section-sub">Because your child's future matters.</p>
+            <div class="parents-grid">
+                <div class="parent-card">
+                    <div class="parent-icon"><i class="fas fa-chart-line"></i></div>
+                    <h4>Track Progress</h4>
+                </div>
+                <div class="parent-card">
+                    <div class="parent-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h4>Know Strengths & Weaknesses</h4>
+                </div>
+                <div class="parent-card">
+                    <div class="parent-icon"><i class="fas fa-calendar-check"></i></div>
+                    <h4>Ensure Consistent Study</h4>
+                    <p>Daily activity & targets</p>
+                </div>
+                <div class="parent-card">
+                    <div class="parent-icon"><i class="fas fa-award"></i></div>
+                    <h4>AI Guidance</h4>
+                    <p>Better decisions, always</p>
+                </div>
+                <div class="parent-card">
+                    <div class="parent-icon"><i class="fas fa-wallet"></i></div>
+                    <h4>Better Investment</h4>
+                    <p>Affordable & measureable</p>
+                </div>
+                <div class="parent-card">
+                    <div class="parent-icon"><i class="fas fa-users"></i></div>
+                    <h4>Trusted by Thousands</h4>
+                    <p>1L+ students</p>
+                </div>
+            </div>
+            <div class="parent-quote">
+                <i class="fas fa-quote-left"></i>
+                <p>"Finally, a platform that keeps us involved in our child's preparation."</p>
+                <span>— Parent of a CGLPrep AI student</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SUCCESS STORIES ===================== -->
+    <section class="success-section" id="success">
+        <div class="container">
+            <h2 class="section-title">Success Stories</h2>
+            <div class="success-tabs">
+                <button class="stab active">Home For Aspirants</button>
+                <button class="stab">CGL Selected</button>
+                <button class="stab">Expert Views</button>
+                <button class="stab">Authors</button>
+            </div>
+            <div class="success-grid">
+                <div class="success-card">
+                    <div class="sc-avatar"><i class="fas fa-user-circle"></i></div>
+                    <div class="sc-info">
+                        <h4>Amit Sharma</h4>
+                        <span class="sc-role">Tax Assistant, CGL 2024</span>
+                        <p>"CGLPrep AI's mock tests and analysis helped me improve over 30% in 3 months. The AI study plan is amazing!"</p>
+                    </div>
+                    <div class="sc-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <div class="success-card">
+                    <div class="sc-avatar"><i class="fas fa-user-circle"></i></div>
+                    <div class="sc-info">
+                        <h4>Priya Kumari</h4>
+                        <span class="sc-role">Auditor, CGL 2024</span>
+                        <p>"The post prediction feature gave me clarity. I could plan my preparation & target post & confidence."</p>
+                    </div>
+                    <div class="sc-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <div class="success-card">
+                    <div class="sc-avatar"><i class="fas fa-user-circle"></i></div>
+                    <div class="sc-info">
+                        <h4>Rahul Verma</h4>
+                        <span class="sc-role">Inspector, CGL 2024</span>
+                        <p>"Best platform for the serious aspirants. Notes, tests, current affairs – everything in one place."</p>
+                    </div>
+                    <div class="sc-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== PRICING ===================== -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Simple & Affordable Pricing</h2>
+            <p class="section-sub">Choose a plan and start your journey today.</p>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <div class="price-header">
+                        <h3>Free Plan</h3>
+                        <div class="price-amount">₹0</div>
+                        <span class="price-period">Forever Free</span>
+                    </div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> Basic study material</li>
+                        <li><i class="fas fa-check"></i> Daily news & current affairs</li>
+                        <li><i class="fas fa-check"></i> Current affairs (2 / day)</li>
+                        <li><i class="fas fa-check"></i> Community support</li>
+                    </ul>
+                    <button class="btn-outline w-full">Get Started Free</button>
+                </div>
+                <div class="price-card featured">
+                    <div class="price-badge">Most Popular</div>
+                    <div class="price-header">
+                        <h3>Pro Plan</h3>
+                        <div class="price-amount">₹299<span>/month</span></div>
+                        <span class="price-period">Everything in Free, plus:</span>
+                    </div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> All Mock tests</li>
+                        <li><i class="fas fa-check"></i> PYQ (2018 – 2025)</li>
+                        <li><i class="fas fa-check"></i> AI study plan</li>
+                        <li><i class="fas fa-check"></i> Performance analytics</li>
+                        <li><i class="fas fa-check"></i> Current affairs – none</li>
+                    </ul>
+                    <button class="btn-primary w-full">Start Pro Plan →</button>
+                </div>
+                <div class="price-card">
+                    <div class="price-header">
+                        <h3>Ultimate Plan</h3>
+                        <div class="price-amount">₹499<span>/month</span></div>
+                        <span class="price-period">Everything in Pro, plus:</span>
+                    </div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> Everything in Pro</li>
+                        <li><i class="fas fa-check"></i> Exclusive AI tutor (24x7 AI)</li>
+                        <li><i class="fas fa-check"></i> Post predictor (advanced)</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                        <li><i class="fas fa-check"></i> Performance analytics</li>
+                    </ul>
+                    <button class="btn-outline w-full">Get Ultimate Plan →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== MOBILE APP CTA ===================== -->
+    <section class="mobile-section">
+        <div class="container">
+            <div class="mobile-grid">
+                <div class="mobile-info">
+                    <h2>CGLPrep AI<br>on Mobile</h2>
+                    <p>Study anytime, anywhere.<br>Notes, tests, current affairs –<br>all in your pocket.</p>
+                    <div class="app-badges">
+                        <button class="app-badge"><i class="fab fa-google-play"></i> Google Play</button>
+                        <button class="app-badge"><i class="fab fa-apple"></i> App Store</button>
+                    </div>
+                </div>
+                <div class="mobile-phone">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <i class="fas fa-graduation-cap phone-logo"></i>
+                            <span>CGLPrep AI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== CTA BANNER ===================== -->
+    <section class="cta-banner">
+        <div class="container cta-inner">
+            <div>
+                <h2>Take the First Step Towards Your Government Job</h2>
+                <p>Join thousands of SSC CGL aspirants who are learning smarter with CGLPrep AI.</p>
+            </div>
+            <button class="btn-white btn-lg">Get Started For Free →</button>
+        </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <span class="logo-icon"><i class="fas fa-graduation-cap"></i></span>
+                        <span class="logo-text"><strong>CGLPrep</strong> AI</span>
+                    </a>
+                    <p>India's most trusted AI-powered platform for SSC CGL. Making aspirants exam-ready with AI and data-driven preparation.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="#">Syllabus</a>
+                    <a href="#">CGL 2026</a>
+                    <a href="#">Features</a>
+                    <a href="#">Success Stories</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Study</h4>
+                    <a href="#">Previous Year Papers</a>
+                    <a href="#">Notes & Revision</a>
+                    <a href="#">Preparation Tips</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Tests</h4>
+                    <a href="#">Mock Tests</a>
+                    <a href="#">Past Predictors</a>
+                    <a href="#">Mistake Book</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Terms & Conditions</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">About Us</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Subscribe to Updates</h4>
+                    <p>Get updates, tips, and resources directly in your inbox.</p>
+                    <div class="subscribe-form">
+                        <input type="email" placeholder="Enter your email" class="form-input" id="subEmail">
+                        <button class="btn-primary btn-sm" id="subscribeBtn">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 CGLPrep AI. All rights reserved.</p>
+                <p>Made with ❤️ for Indian Aspirants</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

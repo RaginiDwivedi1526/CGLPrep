@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Portal Invitation - CGLPrep AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
+        }
+        .email-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo i {
+            font-size: 32px;
+            color: #1e3a8a;
+        }
+        .logo-text h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+        .logo-text p {
+            margin: 0;
+            font-size: 11px;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+        .header-right {
+            text-align: right;
+        }
+        .header-right h3 {
+            margin: 0;
+            font-size: 14px;
+            color: #1e3a8a;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tricolor-line {
+            display: flex;
+            height: 4px;
+            width: 30px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .tricolor-line > div:nth-child(1) { background-color: #ff9933; flex: 1; }
+        .tricolor-line > div:nth-child(2) { background-color: #ffffff; flex: 1; }
+        .tricolor-line > div:nth-child(3) { background-color: #138808; flex: 1; }
+        .header-right p {
+            margin: 5px 0 0;
+            font-size: 10px;
+            color: #64748b;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            padding: 40px;
+            position: relative;
+            background: linear-gradient(to right, #ffffff 50%, #f0f9ff 50%);
+        }
+        .hero-content {
+            flex: 1;
+            padding-right: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-content p.greeting {
+            font-size: 16px;
+            color: #475569;
+            margin-bottom: 15px;
+        }
+        .hero-content h2 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 20px;
+            line-height: 1.2;
+        }
+        .hero-content h2 span {
+            color: #1d4ed8;
+        }
+        .hero-content p.message {
+            font-size: 16px;
+            color: #334155;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .hero-content p.message span {
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .hero-image {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-image-placeholder {
+            width: 100%;
+            height: 250px;
+            background-color: #bae6fd;
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #38bdf8;
+            font-size: 60px;
+        }
+        .floating-quote-1 {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            transform: rotate(-10deg);
+            text-align: center;
+        }
+        .floating-quote-1 p {
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            color: #1e3a8a;
+            margin: 0;
+            line-height: 1.1;
+        }
+        .floating-quote-2 {
+            position: absolute;
+            top: 20px;
+            right: -10px;
+            background-color: white;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transform: rotate(10deg);
+        }
+        .floating-quote-2 p {
+            font-family: 'Caveat', cursive;
+            font-size: 18px;
+            color: #1e3a8a;
+            margin: 0;
+            line-height: 1.2;
+            text-align: center;
+        }
+        .floating-quote-2 i {
+            color: #1d4ed8;
+            margin-top: 5px;
+        }
+
+        /* Credentials Section */
+        .credentials-box {
+            background-color: #f0f9ff;
+            border-radius: 16px;
+            margin: 0 40px 40px;
+            padding: 30px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .cred-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        .cred-content {
+            flex: 1;
+            display: flex;
+            gap: 30px;
+        }
+        .cred-left {
+            flex: 1;
+        }
+        .cred-left h3 {
+            margin: 0 0 20px;
+            font-size: 18px;
+            font-weight: 800;
+            color: #1e3a8a;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 5px;
+        }
+        .input-wrapper {
+            display: flex;
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .input-icon {
+            padding: 10px 15px;
+            color: #64748b;
+            background-color: white;
+        }
+        .input-field {
+            flex: 1;
+            padding: 10px 0;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            color: #0f172a;
+            font-family: 'Inter', sans-serif;
+        }
+        .input-action {
+            padding: 10px 15px;
+            color: #3b82f6;
+            background-color: #eff6ff;
+            border-left: 1px solid #cbd5e1;
+            cursor: pointer;
+        }
+        
+        .cred-right {
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .btn-primary {
+            display: block;
+            background-color: #2563eb;
+            color: white;
+            text-align: center;
+            padding: 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+        }
+        .cred-right p {
+            margin: 0 0 10px;
+            font-size: 13px;
+            color: #475569;
+        }
+        .cred-right a {
+            color: #2563eb;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 0 40px 40px;
+        }
+        .features h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 20px;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .feature-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px 15px;
+            text-align: center;
+        }
+        .f-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            font-size: 20px;
+        }
+        .feature-card h4 {
+            margin: 0 0 8px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .feature-card p {
+            margin: 0;
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        /* Read Only Banner */
+        .read-only {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 0 40px 40px;
+        }
+        .read-only-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #22c55e;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .read-only-text h4 {
+            margin: 0 0 5px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #166534;
+        }
+        .read-only-text p {
+            margin: 0;
+            font-size: 13px;
+            color: #15803d;
+        }
+
+        /* Bottom Section */
+        .bottom-section {
+            display: flex;
+            padding: 40px;
+            background: linear-gradient(to bottom, #ffffff, #f0f9ff);
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid #e2e8f0;
+        }
+        .bottom-quote {
+            flex: 1;
+            padding-right: 30px;
+        }
+        .bottom-quote p {
+            font-family: 'Caveat', cursive;
+            font-size: 28px;
+            color: #1e3a8a;
+            margin: 0 0 10px;
+            line-height: 1.2;
+            transform: rotate(-5deg);
+        }
+        .bottom-message {
+            flex: 2;
+        }
+        .bottom-message p.thanks {
+            font-size: 16px;
+            color: #334155;
+            line-height: 1.5;
+            margin: 0 0 20px;
+        }
+        .bottom-message p.team {
+            font-size: 16px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 5px;
+        }
+        .bottom-message p.tagline {
+            font-size: 12px;
+            color: #475569;
+            margin: 0;
+        }
+        
+        .mountains {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 250px;
+            height: 150px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding: 20px;
+            background-color: #bae6fd;
+            border-top-left-radius: 100%;
+        }
+        .mountains-text {
+            text-align: right;
+            position: relative;
+            z-index: 2;
+        }
+        .mountains-text p {
+            margin: 0;
+            font-size: 12px;
+            color: #0f172a;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 30px 40px;
+            background-color: white;
+            border-top: 1px solid #e2e8f0;
+        }
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .stat-item i {
+            font-size: 24px;
+        }
+        .stat-text h4 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+        .stat-text p {
+            margin: 0;
+            font-size: 11px;
+            color: #64748b;
+        }
+        .social {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .social p {
+            margin: 0 0 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+        .social-icons {
+            display: flex;
+            gap: 10px;
+        }
+        .social-icons a {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .help-text {
+            font-size: 13px;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .help-text strong {
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .made-in {
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="email-container">
+    
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <div class="logo-text">
+                <h1>CGLPrep AI</h1>
+                <p>Plan • Practice • Crack CGL</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <h3>A Better You. A Brighter India. <span class="tricolor-line"><div></div><div></div><div></div></span></h3>
+            <p>For Every Aspirant. For Every Family.</p>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-content">
+            <p class="greeting">Dear Rakesh Kumar Thakur,</p>
+            <h2>Welcome to<br/><span>CGLPrep AI</span> Parent Portal!</h2>
+            <p class="message">Your child, <span>Pankaj Thakur</span>, has invited you to access their CGL preparation progress on CGLPrep AI.</p>
+            <p class="message">Stay informed, support their journey, and celebrate their milestones together! <i class="fas fa-heart" style="color: #3b82f6;"></i></p>
+        </div>
+        <div class="hero-image">
+            <div class="floating-quote-1">
+                <p>Same<br/>Aspiration<br/>Bigger<br/>Dreams!</p>
+                <div class="tricolor-line" style="width: 40px; margin: 5px auto 0;"><div></div><div></div><div></div></div>
+            </div>
+            <div class="floating-quote-2">
+                <p>Proud<br/>Parents<br/>Build<br/>Brighter<br/>Futures.</p>
+                <i class="fas fa-heart"></i>
+            </div>
+            <!-- Mock image box -->
+            <div class="hero-image-placeholder">
+                <i class="fas fa-users"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Credentials -->
+    <div class="credentials-box">
+        <div class="cred-icon"><i class="fas fa-envelope-open-text"></i></div>
+        <div class="cred-content">
+            <div class="cred-left">
+                <h3>Your Parent Portal Login Credentials</h3>
+                
+                <div class="input-group">
+                    <label>Username</label>
+                    <div class="input-wrapper">
+                        <div class="input-icon"><i class="far fa-user"></i></div>
+                        <input type="text" class="input-field" value="rakesh.thakur" readonly>
+                        <div class="input-action"><i class="far fa-copy"></i></div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Temporary Password</label>
+                    <div class="input-wrapper">
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="text" class="input-field" value="xK9pL7mQ" readonly>
+                        <div class="input-icon" style="border-left: 1px solid #cbd5e1; cursor: pointer;"><i class="far fa-eye"></i></div>
+                        <div class="input-action"><i class="far fa-copy"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cred-right">
+                <a href="#" class="btn-primary">Login to Parent Portal <i class="fas fa-arrow-right"></i></a>
+                <p>Or visit: <a href="#">www.cglprepai.com/parent-login</a></p>
+                <p style="margin-top: 15px; color: #64748b;">For security, please change your password after first login.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="features">
+        <h3>As a Parent, You Can:</h3>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="f-icon" style="background-color: #dcfce7; color: #16a34a;"><i class="fas fa-chart-bar"></i></div>
+                <h4>View Progress</h4>
+                <p>Check study progress and performance</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-icon" style="background-color: #ffe4e6; color: #e11d48;"><i class="fas fa-bullseye"></i></div>
+                <h4>See Test Results</h4>
+                <p>Mock test scores and analysis</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-icon" style="background-color: #eff6ff; color: #2563eb;"><i class="fas fa-book-open"></i></div>
+                <h4>Track Study Plan</h4>
+                <p>Daily study activity and completion</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-icon" style="background-color: #f3e8ff; color: #9333ea;"><i class="fas fa-chart-line"></i></div>
+                <h4>Subject-wise Analysis</h4>
+                <p>Strengths and improvement areas</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-icon" style="background-color: #ffedd5; color: #ea580c;"><i class="fas fa-bell"></i></div>
+                <h4>Get Updates</h4>
+                <p>Receive important alerts and reports</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Read Only -->
+    <div class="read-only">
+        <div class="read-only-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="read-only-text">
+            <h4>Read-Only Access</h4>
+            <p>You can view your child's progress, test performance and reports. You cannot make any changes to their account.</p>
+        </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="bottom-section">
+        <div class="bottom-quote">
+            <p>"A supportive<br/>family makes<br/>impossible dreams<br/>possible."</p>
+            <div class="tricolor-line" style="width: 50px; transform: rotate(-5deg); margin-left: 20px;"><div></div><div></div><div></div></div>
+        </div>
+        <div class="bottom-message">
+            <p class="thanks">Thank you for being a part of your child's journey.<br/>Together, we can help them achieve their goals!</p>
+            <p class="team">Team CGLPrep AI</p>
+            <p class="tagline">Plan • Practice • Crack CGL</p>
+        </div>
+        <div class="mountains">
+            <div class="mountains-text">
+                <p>Disciplined<br/>Aspirants<br/>Build a Brighter<br/>India.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-top">
+            <div class="logo">
+                <i class="fas fa-graduation-cap" style="font-size: 24px;"></i>
+                <div class="logo-text">
+                    <h1 style="font-size: 16px;">CGLPrep AI</h1>
+                    <p style="font-size: 9px;">Plan • Practice • Crack CGL</p>
+                </div>
+            </div>
+            
+            <div class="stat-item">
+                <i class="fas fa-users" style="color: #3b82f6;"></i>
+                <div class="stat-text">
+                    <h4>10,000+</h4>
+                    <p>Aspirants Trust Us</p>
+                </div>
+            </div>
+            
+            <div class="stat-item">
+                <i class="fas fa-trophy" style="color: #fbbf24;"></i>
+                <div class="stat-text">
+                    <h4>95%</h4>
+                    <p>Satisfaction Rate</p>
+                </div>
+            </div>
+            
+            <div class="stat-item">
+                <i class="fas fa-star" style="color: #2563eb;"></i>
+                <div class="stat-text">
+                    <h4>4.8/5</h4>
+                    <p>User Rating</p>
+                </div>
+            </div>
+
+            <div class="social">
+                <p>Follow Us</p>
+                <div class="social-icons">
+                    <a href="#" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);"><i class="fab fa-instagram"></i></a>
+                    <a href="#" style="background-color: #ff0000;"><i class="fab fa-youtube"></i></a>
+                    <a href="#" style="background-color: #0077b5;"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="help-text">
+                <strong><i class="fas fa-headset"></i> Need Help?</strong>
+                support@cglprepai.com &nbsp;|&nbsp; +91 1800 123 4567 &nbsp;|&nbsp; Mon - Sat, 9 AM - 6 PM
+            </div>
+            <div class="made-in">
+                <div class="tricolor-line" style="width: 20px; height: 12px; flex-direction: column;">
+                    <div style="width: 100%; height: 4px; background-color: #ff9933;"></div>
+                    <div style="width: 100%; height: 4px; background-color: #ffffff;"></div>
+                    <div style="width: 100%; height: 4px; background-color: #138808;"></div>
+                </div>
+                Made for India's Aspirants <i class="fas fa-heart" style="color: #ef4444;"></i>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
