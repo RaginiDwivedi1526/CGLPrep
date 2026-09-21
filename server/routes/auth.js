@@ -201,12 +201,9 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID || 'dummy');
 router.post('/google', async (req, res) => {
   const { token } = req.body;
   try {
-    const ticket = await client.verifyIdToken({
-      idToken: token,
-      audience: process.env.GOOGLE_CLIENT_ID,
-    });
-    const payload = ticket.getPayload();
-    const { email, name } = payload;
+    client.setCredentials({ access_token: token });
+    const userInfo = await client.request({ url: 'https://www.googleapis.com/oauth2/v3/userinfo' });
+    const { email, name } = userInfo.data;
 
     let user = await User.findOne({ email });
     if (!user) {
@@ -237,12 +234,9 @@ router.post('/google', async (req, res) => {
 router.post('/parent/google', async (req, res) => {
   const { token } = req.body;
   try {
-    const ticket = await client.verifyIdToken({
-      idToken: token,
-      audience: process.env.GOOGLE_CLIENT_ID,
-    });
-    const payload = ticket.getPayload();
-    const { email, name } = payload;
+    client.setCredentials({ access_token: token });
+    const userInfo = await client.request({ url: 'https://www.googleapis.com/oauth2/v3/userinfo' });
+    const { email, name } = userInfo.data;
 
     let parent = await Parent.findOne({ email });
     if (!parent) {
