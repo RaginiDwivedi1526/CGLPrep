@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Pricing = () => {
+  const navigate = useNavigate();
   return (
     <section className="pricing-section" id="pricing">
         <div className="container">
@@ -19,7 +21,7 @@ const Pricing = () => {
                         <li><i className="fas fa-check"></i> Current affairs (2 / day)</li>
                         <li><i className="fas fa-check"></i> Community support</li>
                     </ul>
-                    <button className="btn-outline w-full">Get Started Free</button>
+                    <button className="btn-outline w-full" onClick={() => navigate('/signup?plan=free')}>Get Started Free</button>
                 </div>
                 <div className="price-card featured">
                     <div className="price-badge">Most Popular</div>
@@ -35,7 +37,7 @@ const Pricing = () => {
                         <li><i className="fas fa-check"></i> Performance analytics</li>
                         <li><i className="fas fa-check"></i> Current affairs – none</li>
                     </ul>
-                    <button className="btn-primary w-full">Start Pro Plan →</button>
+                    <button className="btn-primary w-full" onClick={() => navigate('/signup?plan=pro')}>Start Pro Plan →</button>
                 </div>
                 <div className="price-card">
                     <div className="price-header">
@@ -50,7 +52,7 @@ const Pricing = () => {
                         <li><i className="fas fa-check"></i> Priority support</li>
                         <li><i className="fas fa-check"></i> Performance analytics</li>
                     </ul>
-                    <button className="btn-outline w-full">Get Ultimate Plan →</button>
+                    <button className="btn-outline w-full" onClick={() => navigate('/signup?plan=ultimate')}>Get Ultimate Plan →</button>
                 </div>
             </div>
         </div>

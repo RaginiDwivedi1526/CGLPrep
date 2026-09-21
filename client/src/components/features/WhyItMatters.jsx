@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const WhyItMatters = () => {
+  const navigate = useNavigate();
   return (
     <div className="why-features-wrapper">
 
@@ -29,10 +30,10 @@ const WhyItMatters = () => {
             </p>
 
             <div className="why-hero-btns">
-              <button className="btn-primary why-hero-cta">
+              <button className="btn-primary why-hero-cta" onClick={() => navigate('/signup')}>
                 Start Your Journey Today <i className="fas fa-arrow-right"></i>
               </button>
-              <button className="btn-outline why-hero-watch">
+              <button className="btn-outline why-hero-watch" onClick={() => navigate('/signup')}>
                 <i className="fas fa-play-circle"></i> Watch Video
               </button>
             </div>
@@ -131,7 +132,7 @@ const WhyItMatters = () => {
               <div className="wm-col-deco">
                 <span className="wm-handwritten">"Discipline<br/>Today,<br/>Selection<br/>Tomorrow!"</span>
               </div>
-              <button className="btn-outline wm-cta">Explore Student Benefits <i className="fas fa-arrow-right"></i></button>
+              <button className="btn-outline wm-cta" onClick={() => navigate('/signup')}>Explore Student Benefits <i className="fas fa-arrow-right"></i></button>
             </div>
 
             {/* For Parents Column */}
@@ -158,7 +159,7 @@ const WhyItMatters = () => {
                   <span className="wm-heart">❤️</span>
                 </div>
               </div>
-              <button className="btn-outline wm-cta">See Parent Features <i className="fas fa-arrow-right"></i></button>
+              <button className="btn-outline wm-cta" onClick={() => navigate('/parent-login')}>See Parent Features <i className="fas fa-arrow-right"></i></button>
             </div>
 
             {/* For a Better Society Column */}
@@ -186,7 +187,7 @@ const WhyItMatters = () => {
                   <span className="flag-text-hl">India</span>
                 </div>
               </div>
-              <button className="btn-outline wm-cta">Our Larger Impact <i className="fas fa-arrow-right"></i></button>
+              <button className="btn-outline wm-cta" onClick={() => navigate('/signup')}>Our Larger Impact <i className="fas fa-arrow-right"></i></button>
             </div>
           </div>
         </div>
@@ -366,7 +367,7 @@ const WhyItMatters = () => {
             <h2>Be a Part of a Brighter Future</h2>
             <p>Join thousands of aspirants who are preparing smarter with CGLPrep AI.</p>
           </div>
-          <button className="btn-white why-prefooter-btn">Get Started for Free <i className="fas fa-arrow-right"></i></button>
+          <button className="btn-white why-prefooter-btn" onClick={() => navigate('/signup')}>Get Started for Free <i className="fas fa-arrow-right"></i></button>
         </div>
         <div className="why-prefooter-handwritten">
           <span>Bigger</span>

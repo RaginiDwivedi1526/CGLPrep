@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Info = () => {
+  const navigate = useNavigate();
   return (
     <section className="info-section">
         <div className="container">
@@ -30,7 +32,7 @@ const Info = () => {
                         <span>Bachelor's Degree</span>
                         <span className="tag-small">Eligibility</span>
                     </div>
-                    <button className="btn-primary btn-sm w-full">View Complete CGL 2026 Guide →</button>
+                    <button className="btn-primary btn-sm w-full" onClick={() => navigate('/cgl-2026')}>View Complete CGL 2026 Guide →</button>
                     <p className="note-small">* Information is an estimate. Refer to official SSC website.</p>
                 </div>
 

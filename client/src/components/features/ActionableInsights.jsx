@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ActionableInsights = () => {
+  const navigate = useNavigate();
   return (
     <section className="feat-actionable-sec">
         <div className="container">
@@ -28,7 +30,7 @@ const ActionableInsights = () => {
                             </ul>
                         </div>
                     </div>
-                    <button className="btn-primary w-full">Check My Readiness <i className="fas fa-arrow-right"></i></button>
+                    <button className="btn-primary w-full" onClick={() => navigate('/signup')}>Check My Readiness <i className="fas fa-arrow-right"></i></button>
                 </div>
 
                 <div className="insight-card">
@@ -63,7 +65,7 @@ const ActionableInsights = () => {
                             </ul>
                         </div>
                     </div>
-                    <button className="btn-primary w-full">Fix My Gap with AI <i className="fas fa-arrow-right"></i></button>
+                    <button className="btn-primary w-full" onClick={() => navigate('/signup')}>Fix My Gap with AI <i className="fas fa-arrow-right"></i></button>
                 </div>
 
                 <div className="insight-card">
@@ -88,7 +90,7 @@ const ActionableInsights = () => {
                             Plan<br/>Practice<br/>Progress<br/>Selection!
                         </div>
                     </div>
-                    <button className="btn-primary w-full">Start Your Journey Today <i className="fas fa-arrow-right"></i></button>
+                    <button className="btn-primary w-full" onClick={() => navigate('/signup')}>Start Your Journey Today <i className="fas fa-arrow-right"></i></button>
                 </div>
             </div>
         </div>

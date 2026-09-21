@@ -1694,6 +1694,13 @@ ul { list-style: none; }
     .hero-title {
         font-size: 36px;
     }
+    .hero-inner {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+    }
+    .hero-sidebar {
+        display: none;
+    }
     .info-grid-3 {
         grid-template-columns: 1fr;
     }

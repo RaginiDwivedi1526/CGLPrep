@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { useGoogleLogin } from '@react-oauth/google';
 
 const ParentLoginPage = () => {
   const navigate = useNavigate();
@@ -12,6 +13,40 @@ const ParentLoginPage = () => {
   });
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [toast, setToast] = useState('');
+
+  const showToast = (msg) => {
+    setToast(msg);
+    setTimeout(() => setToast(''), 3500);
+  };
+
+  const handleSocialLogin = (provider) => {
+    showToast(`${provider} login is coming soon! Please use email to sign in.`);
+  };
+
+  const loginWithGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const res = await fetch('http://localhost:5000/api/auth/parent/google', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: tokenResponse.access_token })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          setError(data.message || 'Google Login failed');
+        } else {
+          login(data.user, data.token);
+          navigate('/parent-dashboard');
+        }
+      } catch (err) {
+        setError('Google Login Server Error');
+      }
+    },
+    onError: () => {
+      setError('Google Login Failed');
+    }
+  });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -41,6 +76,7 @@ const ParentLoginPage = () => {
   };
 
   return (
+    <>
     <div style={{ display: 'flex', minHeight: '100vh', fontFamily: "'Inter', sans-serif", backgroundColor: '#f8fafc' }}>
       
       {/* Left Side */}
@@ -183,8 +219,8 @@ const ParentLoginPage = () => {
                 <div style={{ flex: 1, height: '1px', backgroundColor: '#e2e8f0' }}></div>
               </div>
 
-              <button type="button" style={{ width: '100%', padding: '12px', backgroundColor: 'white', color: '#334155', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '15px', fontWeight: '600', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" style={{ width: '18px' }} />
+              <button type="button" onClick={() => loginWithGoogle()} style={{ width: '100%', padding: '12px', backgroundColor: 'white', color: '#334155', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '15px', fontWeight: '600', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" />
                 Continue with Google
               </button>
               <p style={{ textAlign: 'center', margin: '15px 0 0', fontSize: '12px', color: '#64748b' }}>Use the same email invited by your child</p>
@@ -267,6 +303,20 @@ const ParentLoginPage = () => {
       </div>
 
     </div>
+
+      {/* Toast Notification */}
+      {toast && (
+        <div style={{
+          position: 'fixed', bottom: '30px', left: '50%', transform: 'translateX(-50%)',
+          background: '#1e293b', color: '#fff', padding: '14px 28px', borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.25)', zIndex: 9999, fontSize: '15px',
+          display: 'flex', alignItems: 'center', gap: '10px', maxWidth: '90vw', textAlign: 'center'
+        }}>
+          <i className="fas fa-info-circle" style={{color: '#60a5fa', fontSize: '18px'}}></i>
+          {toast}
+        </div>
+      )}
+    </>
   );
 };
 

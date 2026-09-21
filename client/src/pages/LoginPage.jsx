@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { useGoogleLogin } from '@react-oauth/google';
 import '../auth.css';
 
 const LoginPage = () => {
@@ -22,6 +23,42 @@ const LoginPage = () => {
     prepLevel: 'intermediate',
   });
   const [error, setError] = useState('');
+  const [toast, setToast] = useState('');
+
+  const showToast = (msg) => {
+    setToast(msg);
+    setTimeout(() => setToast(''), 3500);
+  };
+
+  const handleSocialLogin = (provider) => {
+    showToast(`${provider} login is coming soon! Please use email or mobile to sign in.`);
+  };
+
+  const loginWithGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const res = await fetch('http://localhost:5000/api/auth/google', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: tokenResponse.access_token })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          setError(data.message || 'Google Login failed');
+        } else {
+          login(data.user, data.token);
+          if (role === 'student') navigate('/dashboard');
+          else if (role === 'parent') navigate('/parent-dashboard');
+          else navigate('/admin-dashboard');
+        }
+      } catch (err) {
+        setError('Google Login Server Error');
+      }
+    },
+    onError: () => {
+      setError('Google Login Failed');
+    }
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -83,6 +120,7 @@ const LoginPage = () => {
   };
 
   return (
+    <>
     <div className="login-split-page">
       {/* Left Column: Blue Sidebar */}
       <div className="login-sidebar">
@@ -327,15 +365,15 @@ const LoginPage = () => {
           </div>
 
           <div className="social-login-buttons">
-            <button className="btn-social">
+            <button type="button" className="btn-social" onClick={() => loginWithGoogle()}>
               <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google" />
               Continue with Google
             </button>
-            <button className="btn-social">
+            <button className="btn-social" onClick={() => handleSocialLogin('Apple')}>
               <i className="fab fa-apple text-black"></i>
               Continue with Apple
             </button>
-            <button className="btn-social">
+            <button className="btn-social" onClick={() => handleSocialLogin('Facebook')}>
               <i className="fab fa-facebook text-blue"></i>
               Continue with Facebook
             </button>
@@ -379,6 +417,21 @@ const LoginPage = () => {
         </div>
       </div>
     </div>
+
+    {/* Toast Notification */}
+    {toast && (
+      <div style={{
+        position: 'fixed', bottom: '30px', left: '50%', transform: 'translateX(-50%)',
+        background: '#1e293b', color: '#fff', padding: '14px 28px', borderRadius: '12px',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.25)', zIndex: 9999, fontSize: '15px',
+        display: 'flex', alignItems: 'center', gap: '10px', maxWidth: '90vw', textAlign: 'center',
+        animation: 'fadeInUp 0.3s ease'
+      }}>
+        <i className="fas fa-info-circle" style={{color: '#60a5fa', fontSize: '18px'}}></i>
+        {toast}
+      </div>
+    )}
+    </>
   );
 };
 

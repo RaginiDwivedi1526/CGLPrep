@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const PreFooterCTA = () => {
+  const navigate = useNavigate();
   return (
     <section className="feat-prefooter">
         <div className="container feat-prefooter-inner">
@@ -8,7 +10,7 @@ const PreFooterCTA = () => {
                 <h2>Ready to Experience All Features?</h2>
                 <p>Join thousands of SSC CGL aspirants who are already preparing smarter with CGLPrep AI.</p>
             </div>
-            <button className="btn-yellow">Get Started for Free <i className="fas fa-arrow-right"></i></button>
+            <button className="btn-yellow" onClick={() => navigate('/signup')}>Get Started for Free <i className="fas fa-arrow-right"></i></button>
         </div>
         <div className="feat-prefooter-art">
             {/* Visual placeholder for the mountain illustration */}

@@ -13,7 +13,7 @@ import Success from '../components/Success';
 import Pricing from '../components/Pricing';
 import MobileApp from '../components/MobileApp';
 import CTABanner from '../components/CTABanner';
-
+import './home.css';
 const Home = () => {
   const { data, loading, error } = usePageData('home');
 
@@ -22,20 +22,45 @@ const Home = () => {
 
   return (
     <>
-      {/* Passing backend data as props down to components if needed */}
-      <Hero title={data?.heroTitle} />
-      <Features />
-      <Info />
-      <StudyPlan />
-      <Mastery />
-      <Predictor />
-      <ExamAffairs />
-      <WhyChoose />
-      <Parents />
-      <Success stats={data?.stats} />
-      <Pricing />
-      <MobileApp />
-      <CTABanner />
+      <section className="home-section" id="hero-section">
+        <Hero title={data?.heroTitle} stats={data?.stats} />
+      </section>
+      <section className="home-section" id="features-section">
+        <Features />
+      </section>
+      <section className="home-section" id="info-section">
+        <Info />
+      </section>
+      <section className="home-section" id="studyplan-section">
+        <StudyPlan />
+      </section>
+      <section className="home-section" id="mastery-section">
+        <Mastery />
+      </section>
+      <section className="home-section" id="predictor-section">
+        <Predictor />
+      </section>
+      <section className="home-section" id="exam-affairs-section">
+        <ExamAffairs topNews={data?.topNews} />
+      </section>
+      <section className="home-section" id="whychoose-section">
+        <WhyChoose />
+      </section>
+      <section className="home-section" id="parents-section">
+        <Parents />
+      </section>
+      <section className="home-section" id="success-section">
+        <Success reviews={data?.reviews} />
+      </section>
+      <section className="home-section" id="pricing-section">
+        <Pricing />
+      </section>
+      <section className="home-section" id="mobileapp-section">
+        <MobileApp />
+      </section>
+      <section className="home-section" id="cta-section">
+        <CTABanner />
+      </section>
     </>
   );
 };

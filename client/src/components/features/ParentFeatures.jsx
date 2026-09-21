@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ParentFeatures = () => {
   const [openFaq, setOpenFaq] = useState(null);
+  const navigate = useNavigate();
 
   const toggleFaq = (idx) => {
     setOpenFaq(openFaq === idx ? null : idx);
@@ -43,7 +44,7 @@ const ParentFeatures = () => {
               Stay informed, involved and confident. CGLPrep AI gives parents complete visibility into their child's preparation, progress and future career opportunities.
             </p>
 
-            <button className="btn-primary parent-hero-cta">
+            <button className="btn-primary parent-hero-cta" onClick={() => navigate('/parent-login')}>
               View Sample Parent Dashboard <i className="fas fa-arrow-right"></i>
             </button>
           </div>
@@ -297,7 +298,7 @@ const ParentFeatures = () => {
           <div className="parent-cta-content">
             <h2>Give Your Child the<br/><strong>Right Support at the Right Time</strong></h2>
             <p>A small step from you can make a big difference in their journey. Stay connected, stay informed, and be a part of their success.</p>
-            <button className="btn-primary parent-cta-btn">See How It Works <i className="fas fa-arrow-right"></i></button>
+            <button className="btn-primary parent-cta-btn" onClick={() => navigate('/parent-login')}>See How It Works <i className="fas fa-arrow-right"></i></button>
           </div>
           <div className="parent-cta-quote">
             <p className="handwritten-quote">"Behind every successful aspirant, there is a supportive family."</p>
@@ -405,7 +406,7 @@ const ParentFeatures = () => {
             <h2>Invest in Their Dream. Be a Part of Their Success.</h2>
             <p>Join thousands of parents who trust CGLPrep AI.</p>
           </div>
-          <button className="btn-white parent-prefooter-btn">Create Parent Account <i className="fas fa-arrow-right"></i></button>
+          <button className="btn-white parent-prefooter-btn" onClick={() => navigate('/parent-login')}>Create Parent Account <i className="fas fa-arrow-right"></i></button>
         </div>
         <div className="parent-prefooter-trust">
           <div className="container">

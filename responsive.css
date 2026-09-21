@@ -1,0 +1,131 @@
+/* ========================================
+   RESPONSIVE STYLES (Mobile & Tablet)
+   ======================================== */
+
+@media (max-width: 992px) {
+  /* Hero Sections */
+  .hero-inner, .cgl-hero-grid, .cgl-stats-grid, .info-grid-3 {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .hero-stats .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .ca-grid, .success-grid, .pricing-grid, .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Container Adjustments */
+  .container {
+    padding: 0 15px;
+    width: 100%;
+  }
+
+  /* Header & Navigation */
+  .nav-links, .header-actions {
+    display: none; /* In a real app, implement hamburger menu toggle */
+  }
+
+  /* Typography */
+  h1 { font-size: 32px !important; line-height: 40px !important; }
+  h2 { font-size: 28px !important; line-height: 36px !important; }
+  h3 { font-size: 22px !important; }
+
+  /* Hero Elements */
+  .hero-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-btns, .cgl-hero-btns {
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+  }
+  .btn-primary, .btn-outline {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .hero-trust, .trust-avatars {
+    justify-content: center;
+  }
+  .hero-sidebar, .cgl-hero-sidebar {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  /* Stats */
+  .hero-stats .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  /* Grids to single column */
+  .ca-grid, .success-grid, .pricing-grid, .footer-grid, .cgl-stats-grid, .info-grid-3, .exam-affairs-grid, .features-grid, .mock-grid, .study-grid,
+  .feat-grid-12, .feat-grid-6, .feat-grid-3, .parent-feature-cards, .parent-test-grid, .parent-faq-layout, .trust-icons-row, .parent-hero-inner, .feat-hero-inner {
+    grid-template-columns: 1fr !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Custom components */
+  .success-card, .pricing-card, .ca-card, .info-card {
+    width: 100%;
+  }
+  
+  /* CTA Banner */
+  .cta-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+  }
+  
+  /* Important Dates Timeline */
+  .timeline {
+    flex-direction: column;
+  }
+  .timeline-item {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  /* Study Resources */
+  .resources-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Tabs */
+  .success-tabs, .tab-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .success-tabs .stab, .tab-nav button {
+    margin-bottom: 10px;
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  /* Sidebar/Layout wrappers */
+  .page-layout {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    position: relative;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Mobile Small */
+  .hero-stats .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  h1 { font-size: 28px !important; }
+  h2 { font-size: 24px !important; }
+}

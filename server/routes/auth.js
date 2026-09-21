@@ -193,4 +193,72 @@ router.get('/me', auth, async (req, res) => {
   }
 });
 
+// @route   POST /api/auth/google
+// @desc    Login or Register student with Google
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID || 'dummy');
+
+router.post('/google', async (req, res) => {
+  const { token } = req.body;
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    const { email, name } = payload;
+
+    let user = await User.findOne({ email });
+    if (!user) {
+      user = new User({
+        name,
+        email,
+        mobile: '',
+        examGoal: 'cgl2026',
+        appearYear: '2026',
+        prepLevel: 'intermediate'
+      });
+      await user.save();
+    }
+
+    const jwtPayload = { user: { id: user.id, role: 'student' } };
+    jwt.sign(jwtPayload, JWT_SECRET, { expiresIn: 360000 }, (err, jwtToken) => {
+      if (err) throw err;
+      res.json({ token: jwtToken, user: { id: user.id, name: user.name, role: 'student' } });
+    });
+  } catch (err) {
+    console.error("Google Auth Error:", err.message);
+    res.status(401).json({ message: 'Google Authentication failed' });
+  }
+});
+
+// @route   POST /api/auth/parent/google
+// @desc    Login or Register parent with Google
+router.post('/parent/google', async (req, res) => {
+  const { token } = req.body;
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    const { email, name } = payload;
+
+    let parent = await Parent.findOne({ email });
+    if (!parent) {
+      parent = new Parent({ name, email });
+      await parent.save();
+    }
+
+    const jwtPayload = { user: { id: parent.id, role: 'parent' } };
+    jwt.sign(jwtPayload, JWT_SECRET, { expiresIn: 360000 }, (err, jwtToken) => {
+      if (err) throw err;
+      res.json({ token: jwtToken, user: { id: parent.id, name: parent.name, role: 'parent' } });
+    });
+  } catch (err) {
+    console.error("Google Auth Error:", err.message);
+    res.status(401).json({ message: 'Google Authentication failed' });
+  }
+});
+
 module.exports = router;

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const CGLHero = () => {
+  const navigate = useNavigate();
   return (
     <section className="cgl-hero">
         <div className="container">
@@ -16,13 +17,13 @@ const CGLHero = () => {
                     <h1>Complete Guide to<br/><span className="highlight-text">SSC CGL 2026</span></h1>
                     <p className="cgl-hero-desc">Get the latest notification, important dates, syllabus, exam pattern, vacancies, eligibility, selection process and expert preparation strategy — all in one place.</p>
                     <div className="cgl-hero-btns">
-                        <button className="btn-primary btn-lg"><i className="fas fa-rocket"></i> Start Preparation →</button>
-                        <button className="btn-outline btn-lg"><i className="fas fa-download"></i> Download Guide (PDF)</button>
+                        <button className="btn-primary btn-lg" onClick={() => navigate('/signup')}><i className="fas fa-rocket"></i> Start Preparation →</button>
+                        <button className="btn-outline btn-lg" onClick={() => navigate('/signup')}><i className="fas fa-download"></i> Download Guide (PDF)</button>
                     </div>
                 </div>
                 <div className="cgl-hero-image">
                     <div className="cgl-hero-img-wrapper">
-                        <img src="images/hero-student.png" alt="SSC CGL Aspirant" onError={(e) => e.target.style.display='none'} />
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="SSC CGL Aspirant" style={{width: '100%', height: '100%', objectFit: 'cover', borderRadius: '16px'}} />
                         <div className="cgl-floating-badge">
                             <span className="badge-text">GOVERNMENT<br/>JOBS<br/>BUILD A<br/>BETTER INDIA</span>
                         </div>

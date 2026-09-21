@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const DeepDiveGrid = () => {
+  const navigate = useNavigate();
   return (
     <section className="feat-deepdive-sec">
         <div className="container">
@@ -20,7 +22,7 @@ const DeepDiveGrid = () => {
                         {/* Placeholder for laptop mockup */}
                         <div style={{background: '#cbd5e1', width: '250px', height: '150px', borderRadius: '8px', display: 'inline-block', boxShadow: '0 10px 25px rgba(0,0,0,0.1)'}}></div>
                     </div>
-                    <button className="btn-primary w-full" style={{position: 'relative', zIndex: 3, marginTop: '20px'}}>Take a Free Mock Test <i className="fas fa-arrow-right"></i></button>
+                    <button className="btn-primary w-full" style={{position: 'relative', zIndex: 3, marginTop: '20px'}} onClick={() => navigate('/mock-tests')}>Take a Free Mock Test <i className="fas fa-arrow-right"></i></button>
                 </div>
 
                 <div className="dd-card">
@@ -33,7 +35,7 @@ const DeepDiveGrid = () => {
                         <li><i className="fas fa-check-circle"></i> Department details</li>
                         <li><i className="fas fa-check-circle"></i> Promotion & career growth</li>
                     </ul>
-                    <button className="btn-primary w-full" style={{marginTop: '20px'}}>View Cutoff & Salary Data <i className="fas fa-arrow-right"></i></button>
+                    <button className="btn-primary w-full" style={{marginTop: '20px'}} onClick={() => navigate('/cgl-2026')}>View Cutoff & Salary Data <i className="fas fa-arrow-right"></i></button>
                 </div>
 
                 <div className="dd-card">
@@ -50,7 +52,7 @@ const DeepDiveGrid = () => {
                         <i className="fas fa-bell"></i>
                         <span>Notify Me</span>
                     </div>
-                    <button className="btn-primary w-full" style={{position: 'relative', zIndex: 3, marginTop: '20px'}}>Get Exam Updates <i className="fas fa-arrow-right"></i></button>
+                    <button className="btn-primary w-full" style={{position: 'relative', zIndex: 3, marginTop: '20px'}} onClick={() => navigate('/cgl-2026')}>Get Exam Updates <i className="fas fa-arrow-right"></i></button>
                 </div>
                 
                 <div className="dd-card">
@@ -67,7 +69,7 @@ const DeepDiveGrid = () => {
                          {/* Placeholder for parent image */}
                         <div style={{background: '#cbd5e1', width: '200px', height: '150px', borderRadius: '12px', display: 'inline-block'}}></div>
                     </div>
-                    <button className="btn-primary w-full" style={{position: 'relative', zIndex: 3, marginTop: '20px'}}>Learn About Parent Dashboard <i className="fas fa-arrow-right"></i></button>
+                    <button className="btn-primary w-full" style={{position: 'relative', zIndex: 3, marginTop: '20px'}} onClick={() => navigate('/parent-login')}>Learn About Parent Dashboard <i className="fas fa-arrow-right"></i></button>
                 </div>
 
                 <div className="dd-card">
@@ -83,7 +85,7 @@ const DeepDiveGrid = () => {
                     <div className="price-tag-img">
                         <i className="fas fa-rupee-sign"></i>
                     </div>
-                    <button className="btn-primary w-full" style={{position: 'relative', zIndex: 3, marginTop: '20px'}}>View Pricing Plans <i className="fas fa-arrow-right"></i></button>
+                    <button className="btn-primary w-full" style={{position: 'relative', zIndex: 3, marginTop: '20px'}} onClick={() => navigate('/pricing')}>View Pricing Plans <i className="fas fa-arrow-right"></i></button>
                 </div>
 
                 <div className="dd-card">

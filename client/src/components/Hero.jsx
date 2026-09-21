@@ -1,16 +1,23 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Hero = () => {
+const Hero = ({ title, stats }) => {
+  const navigate = useNavigate();
+
+  const handleWatchVideo = () => {
+    document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="hero" id="hero">
         <div className="container hero-inner">
             <div className="hero-content">
                 <span className="hero-badge"><i className="fas fa-robot"></i> #1 AI-Powered Platform for SSC CGL</span>
-                <h1 className="hero-title">Your CGL Dream.<br/><span>Our AI Guidance.</span></h1>
+                <h1 className="hero-title">{title ? <span dangerouslySetInnerHTML={{__html: title.replace('AI', '<span>AI</span>')}} /> : <>Your CGL Dream.<br/><span>Our AI Guidance.</span></>}</h1>
                 <p className="hero-desc">Personalized study plans, Real exam experience, Post prediction.<br/>Everything you need to crack SSC CGL — in one place.</p>
                 <div className="hero-btns">
-                    <button className="btn-primary btn-lg"><i className="fas fa-rocket"></i> Start Free Now</button>
-                    <button className="btn-outline btn-lg"><i className="fas fa-play-circle"></i> Watch Video</button>
+                    <button className="btn-primary btn-lg" onClick={() => navigate('/signup')}><i className="fas fa-rocket"></i> Start Free Now</button>
+                    <button className="btn-outline btn-lg" onClick={handleWatchVideo}><i className="fas fa-play-circle"></i> Watch Video</button>
                 </div>
                 <div className="hero-trust">
                     <div className="trust-avatars">
@@ -24,21 +31,7 @@ const Hero = () => {
             </div>
             <div className="hero-image">
                 <div className="hero-img-wrapper">
-                    <div style={{
-                        width: '100%',
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'white',
-                        gap: '16px',
-                        padding: '20px',
-                        textAlign: 'center'
-                    }}>
-                        <i className="fas fa-user-graduate" style={{fontSize: '72px', opacity: 0.9}}></i>
-                        <span style={{fontSize: '18px', fontWeight: 700, opacity: 0.9}}>Your CGL Dream<br/>Starts Here</span>
-                    </div>
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Students Preparing for Exam" style={{width: '100%', height: '100%', objectFit: 'cover', borderRadius: '20px'}} />
                     <div className="hero-floating-card card-dream">
                         <i className="fas fa-star"></i>
                         <span>Bigger Dream,<br/>Let's Crack it.</span>
@@ -64,23 +57,23 @@ const Hero = () => {
             <div className="container">
                 <div className="stats-grid">
                     <div className="stat-item">
-                        <span className="stat-number" data-count="100000">1,00,000+</span>
+                        <span className="stat-number">{stats?.activeLearners || '1,00,000+'}</span>
                         <span className="stat-label">Active Learners</span>
                     </div>
                     <div className="stat-item">
-                        <span className="stat-number">10,00,000+</span>
+                        <span className="stat-number">{stats?.questionsPracticed || '10,00,000+'}</span>
                         <span className="stat-label">Questions Practiced</span>
                     </div>
                     <div className="stat-item">
-                        <span className="stat-number">50,000+</span>
+                        <span className="stat-number">{stats?.mockTestsAttempted || '50,000+'}</span>
                         <span className="stat-label">Mock Tests Attempted</span>
                     </div>
                     <div className="stat-item">
-                        <span className="stat-number">90%</span>
+                        <span className="stat-number">{stats?.improvementRate || '90%'}</span>
                         <span className="stat-label">Improvement Rate</span>
                     </div>
                     <div className="stat-item">
-                        <span className="stat-number">4.8/5</span>
+                        <span className="stat-number">{stats?.rating || '4.8/5'}</span>
                         <span className="stat-label">Student Rating</span>
                     </div>
                 </div>
